@@ -13,6 +13,8 @@ public class Game : GameWindow
 
     private Shader? shader;
 
+    private Texture? texture;
+
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
@@ -25,17 +27,28 @@ public class Game : GameWindow
         quad = new QuadMesh();
 
         shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag");
+
+        float[] array = {
+            0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
+        };
+
+        texture = Texture.fromArray(array, 2, 2);
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
     {
         Debug.Assert(quad != null);
         Debug.Assert(shader != null);
+        Debug.Assert(texture != null);
         base.OnRenderFrame(args);
 
         GL.Clear(ClearBufferMask.ColorBufferBit);
         
         shader.Use();
+
+        texture.Use(TextureUnit.Texture0);
+
         quad.bind();
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, quad.vertexCount);
