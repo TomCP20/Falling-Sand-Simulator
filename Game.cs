@@ -56,6 +56,7 @@ public class Game : GameWindow
 protected override void OnUpdateFrame(FrameEventArgs args)
 {
     Debug.Assert(texture != null);
+    Debug.Assert(world != null);
     base.OnUpdateFrame(args);
 
     if (KeyboardState.IsKeyDown(Keys.Escape))
@@ -63,6 +64,7 @@ protected override void OnUpdateFrame(FrameEventArgs args)
         Close();
     }
 
+    world.Update();
 
 }
 
