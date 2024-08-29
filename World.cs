@@ -1,22 +1,20 @@
-
-
 using OpenTK.Mathematics;
 
 namespace FallingSandSimulator;
 
 public class World
 {
-    private readonly int[,] state;
+    private readonly Cell[,] state;
 
     public readonly Vector2i size;
 
     public World(int width, int height)
     {
         size = new Vector2i(width, height);
-        state = new int[height, width];
-        state[0, 0] = 1;
-        state[0, 1] = 2;
-        state[1, 0] = 3;
+        state = new Cell[height, width];
+        state[0, 0] = new Cell(new Vector3(1, 0, 0));
+        state[0, 1] = new Cell(new Vector3(0, 1, 0));
+        state[1, 0] = new Cell(new Vector3(0, 0, 1));
     }
 
     public void Update()
@@ -25,7 +23,7 @@ public class World
         {
             for (int j = 0; j < state.GetLength(1); j++)
             {
-                int cell = state[i, j];
+                Cell cell = state[i, j];
             }
         }
     }
@@ -40,23 +38,15 @@ public class World
             for (int j = 0; j < state.GetLength(1); j++)
             {
                 int index = i * state.GetLength(1) + j;
-                int s = state[i, j];
+                Cell cell = state[i, j];
                 Vector3 col;
-                if (s == 0)
+                if (cell == null)
                 {
                     col = new Vector3(0, 0, 0);
                 }
-                else if (s == 1)
-                {
-                    col = new Vector3(1, 0, 0);
-                }
-                else if (s == 2)
-                {
-                    col = new Vector3(0, 1, 0);
-                }
                 else
                 {
-                    col = new Vector3(0, 0, 1);
+                    col = cell.col;
                 }
                 for (int k = 0; k < 3; k++)
                 {
