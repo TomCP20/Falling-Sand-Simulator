@@ -15,7 +15,10 @@ public class World
         size = new Vector2i(width, height);
         state = new int[height, width];
         state[0, 0] = 1;
-        state[0, 2] = 1;
+        state[1, 0] = 2;
+        state[2, 0] = 3;
+        state[3, 0] = 2;
+        state[4, 0] = 1;
     }
 
     public float[] toArray()
@@ -33,13 +36,22 @@ public class World
                 {
                     col = new Vector3(0, 0, 0);
                 }
-                else
+                else if (s == 1)
+                {
+                    col = new Vector3(1, 0, 0);
+                }
+                else if (s == 2)
                 {
                     col = new Vector3(0, 1, 0);
                 }
-                array[index * 3] = col.X;
-                array[index * 3 + 1] = col.Y;
-                array[index * 3 + 2] = col.Z;
+                else
+                {
+                    col = new Vector3(0, 0, 1);
+                }
+                for (int k = 0; k < 3; k++)
+                {
+                    array[index * 3 + k] = col[k];
+                }
             }
         }
         Console.WriteLine(state);
