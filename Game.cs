@@ -15,7 +15,7 @@ public class Game : GameWindow
 
     private Texture? texture;
 
-    private bool frame = true;
+    private World? world;
 
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
@@ -30,12 +30,9 @@ public class Game : GameWindow
 
         shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag");
 
-        float[] array = {
-            0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
-        };
+        world = new World(4, 5);
 
-        texture = Texture.fromArray(array, 2, 2);
+        texture = Texture.fromWorld(world);
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -66,21 +63,7 @@ protected override void OnUpdateFrame(FrameEventArgs args)
         Close();
     }
 
-    if (frame)
-        {
-            texture.update([
-                1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f,
-                0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f
-            ], 2, 2);
-        }
-        else
-        {
-            texture.update([
-                0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
-                1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
-            ], 2, 2);
-        }
-        frame = !frame;
+
 }
 
 

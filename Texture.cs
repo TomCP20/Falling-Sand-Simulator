@@ -7,14 +7,14 @@ public class Texture
 {
     public readonly int Handle;
 
-    public static Texture fromArray(float[] data, int width, int height)
+    public static Texture fromWorld(World world)
     {
         int handle = GL.GenTexture();
 
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, handle);
 
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, width, height, 0, PixelFormat.Rgb, PixelType.Float, data);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.size.X, world.size.Y, 0, PixelFormat.Rgb, PixelType.Float, world.toArray());
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
@@ -36,9 +36,9 @@ public class Texture
         GL.BindTexture(TextureTarget.Texture2D, Handle);
     }
 
-    public void update(float[] data, int width, int height)
+    public void update(World world)
     {
         GL.BindTexture(TextureTarget.Texture2D, Handle);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, width, height, 0, PixelFormat.Rgb, PixelType.Float, data);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.size.X, world.size.Y, 0, PixelFormat.Rgb, PixelType.Float, world.toArray());
     }
 }
