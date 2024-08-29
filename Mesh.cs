@@ -20,12 +20,14 @@ public abstract class Mesh
         GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
     }
 
-    public void bind()
+
+    public void Draw()
     {
         GL.BindVertexArray(vertexArrayObject);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, vertexCount);
     }
 
-    public void delete()
+    public void Delete()
     {
         GL.DeleteBuffer(vertexBufferObject);
         GL.DeleteVertexArray(vertexArrayObject);

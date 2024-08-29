@@ -15,6 +15,8 @@ public class Game : GameWindow
 
     private Texture? texture;
 
+    private bool frame = true;
+
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
@@ -49,21 +51,36 @@ public class Game : GameWindow
 
         texture.Use(TextureUnit.Texture0);
 
-        quad.bind();
-
-        GL.DrawArrays(PrimitiveType.Triangles, 0, quad.vertexCount);
+        quad.Draw();
 
         SwapBuffers();
 }
 
 protected override void OnUpdateFrame(FrameEventArgs args)
 {
+    Debug.Assert(texture != null);
     base.OnUpdateFrame(args);
 
     if (KeyboardState.IsKeyDown(Keys.Escape))
     {
         Close();
     }
+
+    if (frame)
+        {
+            texture.update([
+                1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f
+            ], 2, 2);
+        }
+        else
+        {
+            texture.update([
+                0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+                1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
+            ], 2, 2);
+        }
+        frame = !frame;
 }
 
 
@@ -80,7 +97,7 @@ protected override void OnUnload()
     GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     GL.BindVertexArray(0);
     GL.UseProgram(0);
-    quad.delete();
+    quad.Delete();
     GL.DeleteProgram(shader.Handle);
     base.OnUnload();
 }

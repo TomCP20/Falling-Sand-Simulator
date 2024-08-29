@@ -9,12 +9,14 @@ const int screenHeight = 480;
 NativeWindowSettings nativeWindowSettings = new NativeWindowSettings()
 {
     ClientSize = new Vector2i(screenWidth, screenHeight),
+
     Title = "Falling Sand Simulator",
     // This is needed to run on macos
     Flags = ContextFlags.ForwardCompatible,
 };
 
-using (Game window = new Game(GameWindowSettings.Default, nativeWindowSettings))
+using (Game window = new(GameWindowSettings.Default, nativeWindowSettings))
 {
+    window.UpdateFrequency = 5;
     window.Run();
 }
