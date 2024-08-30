@@ -14,7 +14,7 @@ public class Texture
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, handle);
 
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.toArray());
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.ToArray());
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
@@ -39,6 +39,6 @@ public class Texture
     public void update(World world)
     {
         GL.BindTexture(TextureTarget.Texture2D, Handle);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.toArray());
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.ToArray());
     }
 }

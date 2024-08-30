@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 namespace FallingSandSimulator;
@@ -6,6 +7,8 @@ namespace FallingSandSimulator;
 public class World
 {
     private Cell?[,] state;
+
+    private bool[,] stepped;
 
     public readonly int width;
 
@@ -16,19 +19,29 @@ public class World
         this.width = width;
         this.height = height;
         state = new Cell[height, width];
+        stepped = new bool[height, width];
     }
 
     public void Update()
     {
-        Cell?[,] nextState = new Cell[height, width];
+        stepped = new bool[height, width];
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                state[y, x]?.Update(this, nextState, x, y);
+                state[y, x]?.Update(this, x, y);
             }
         }
-        state = nextState;
+    }
+
+    public void Swap(int x1, int y1, int x2, int y2)
+    {
+        (state[y2, x2], state[y1, x1]) = (state[y1, x1], state[y2, x2]);
+    }
+
+    public void SetStepped(int x, int y)
+    {
+        stepped[y, x] = true;
     }
 
     public void Clear()
@@ -59,7 +72,7 @@ public class World
     }
 
 
-    public float[] toArray()
+    public float[] ToArray()
     {
         float[] array = new float[3 * width * height];
 

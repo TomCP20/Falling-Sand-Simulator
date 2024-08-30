@@ -11,5 +11,5 @@ public abstract class Cell
         this.col = col;
     }
 
-    public abstract void Update(World world, Cell?[,] nextState, int x, int y);
+    public abstract void Update(World world, int x, int y);
 }
