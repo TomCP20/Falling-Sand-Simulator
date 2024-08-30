@@ -7,6 +7,8 @@ public class Sand : Cell
 
     public Sand() : base(new Vector3(1, 1, 0)) { }
 
+    protected Sand(Vector3 colour) : base(colour) { }
+
     public override void Update(World world, int x, int y)
     {
         if (world.IsEmpty(x, y-1))

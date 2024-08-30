@@ -4,11 +4,11 @@ namespace FallingSandSimulator;
 
 public abstract class Cell
 {
-    public readonly Vector3 col;
+    public readonly Vector3 colour;
 
-    protected Cell(Vector3 col)
+    protected Cell(Vector3 colour)
     {
-        this.col = col;
+        this.colour = colour;
     }
 
     public abstract void Update(World world, int x, int y);

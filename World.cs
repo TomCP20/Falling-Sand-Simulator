@@ -53,7 +53,7 @@ public class World
     {
         if (IsEmpty(x, y))
         {
-            state[y, x] = new Sand();
+            state[y, x] = new RainbowSand();
         }
     }
 
@@ -89,7 +89,7 @@ public class World
                 }
                 else
                 {
-                    col = cell.col;
+                    col = cell.colour;
                 }
                 for (int k = 0; k < 3; k++)
                 {
