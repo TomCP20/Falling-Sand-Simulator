@@ -13,6 +13,7 @@ NativeWindowSettings nativeWindowSettings = new NativeWindowSettings()
     Title = "Falling Sand Simulator",
     // This is needed to run on macos
     Flags = ContextFlags.ForwardCompatible,
+    WindowState = WindowState.Fullscreen,
 };
 
 using (Game window = new(GameWindowSettings.Default, nativeWindowSettings))

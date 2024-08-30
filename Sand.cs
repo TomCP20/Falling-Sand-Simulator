@@ -14,6 +14,16 @@ public class Sand : Cell
             nextState[y, x] = null;
             nextState[y - 1, x] = this;
         }
+        else if (world.IsEmpty(x-1, y-1))
+        {
+            nextState[y, x] = null;
+            nextState[y - 1, x-1] = this;
+        }
+        else if (world.IsEmpty(x+1, y-1))
+        {
+            nextState[y, x] = null;
+            nextState[y - 1, x+1] = this;
+        }
         else
         {
             nextState[y, x] = this;
