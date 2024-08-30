@@ -14,11 +14,11 @@ public class Game : GameWindow
 
     private Texture? texture;
 
-    private readonly World world = new World(160, 120);
+    private readonly World world = new World(640, 480);
 
     private CellType spawnType = CellType.Sand;
 
-    private readonly int brushSize = 2;
+    private readonly int brushSize = 8;
 
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
