@@ -15,9 +15,11 @@ public class Game : GameWindow
 
     private Texture? texture;
 
-    private readonly World world = new World(80, 60);
+    private readonly World world = new World(160, 120);
 
     private CellType spawnType = CellType.Sand;
+
+    private readonly int brushSize = 2;
 
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
@@ -96,16 +98,16 @@ public class Game : GameWindow
             switch (spawnType)
             {
                 case CellType.Water:
-                    world.SpawnMultipleCells<Water>(x, y, 1);
+                    world.SpawnMultipleCells<Water>(x, y, brushSize);
                     break;
                 case CellType.Sand:
-                    world.SpawnMultipleCells<Sand>(x, y, 1);
+                    world.SpawnMultipleCells<Sand>(x, y, brushSize);
                     break;
                 case CellType.RainbowSand:
-                    world.SpawnMultipleCells<RainbowSand>(x, y, 1);
+                    world.SpawnMultipleCells<RainbowSand>(x, y, brushSize);
                     break;
                 case CellType.Stone:
-                    world.SpawnMultipleCells<Stone>(x, y, 1);
+                    world.SpawnMultipleCells<Stone>(x, y, brushSize);
                     break;
             }
         }
