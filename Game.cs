@@ -15,7 +15,7 @@ public class Game : GameWindow
 
     private Texture? texture;
 
-    private readonly World world = new World(4, 5);
+    private readonly World world = new World(10, 10);
 
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }

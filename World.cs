@@ -28,7 +28,6 @@ public class World
             {
                 if (state[y, x] is Sand && isEmpty(x, y-1))
                 {
-                    Console.WriteLine(y + " " + x);
                     nextState[y, x] = null;
                     nextState[y - 1, x] = state[y, x];
                 }
