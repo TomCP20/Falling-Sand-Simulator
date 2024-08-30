@@ -54,7 +54,7 @@ public class World
         state = state = new Cell[height, width];
     }
 
-    public void SpawnCell<T>(int x, int y) where T : Cell, new()
+    public void SpawnCell<T>(int x, int y) where T : Cell?, new()
     {
         if (IsEmpty(x, y))
         {
@@ -69,6 +69,20 @@ public class World
             for (int xi = x-radius; xi <= x+radius; xi++)
             {
                 SpawnCell<T>(xi, yi);
+            }
+        }
+    }
+
+    public void EraseMultipleCells(int x, int y, int radius)
+    {
+        for (int yi = y-radius; yi <= y+radius; yi++)
+        {
+            for (int xi = x-radius; xi <= x+radius; xi++)
+            {
+                if (InBounds(xi, yi))
+                {
+                    state[yi, xi] = null;
+                }
             }
         }
     }

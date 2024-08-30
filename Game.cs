@@ -70,21 +70,22 @@ public class Game : GameWindow
             world.Clear();
         }
 
+        if (KeyboardState.IsKeyPressed(Keys.D0))
+        {
+            spawnType = CellType.Empty;
+        }
         if (KeyboardState.IsKeyPressed(Keys.D1))
         {
             spawnType = CellType.Water;
         }
-
         if (KeyboardState.IsKeyPressed(Keys.D2))
         {
             spawnType = CellType.Sand;
         }
-
         if (KeyboardState.IsKeyPressed(Keys.D3))
         {
             spawnType = CellType.RainbowSand;
         }
-
         if (KeyboardState.IsKeyPressed(Keys.D4))
         {
             spawnType = CellType.Stone;
@@ -96,6 +97,9 @@ public class Game : GameWindow
             int y = (int)Math.Ceiling((1 - MousePosition.Y / Size.Y) * world.height) - 1;
             switch (spawnType)
             {
+                case CellType.Empty:
+                    world.EraseMultipleCells(x, y, brushSize);
+                    break;
                 case CellType.Water:
                     world.SpawnMultipleCells<Water>(x, y, brushSize);
                     break;
