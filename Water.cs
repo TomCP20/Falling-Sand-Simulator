@@ -2,12 +2,11 @@ using OpenTK.Mathematics;
 
 namespace FallingSandSimulator;
 
-public class Sand : Cell
+public class Water : Cell
 {
 
-    public Sand() : base(new Vector3(1, 1, 0)) { }
+    public Water() : base(new Vector3(0, 0, 1)) { }
 
-    protected Sand(Vector3 colour) : base(colour) { }
 
     public override void Update(World world, int x, int y)
     {
@@ -26,6 +25,16 @@ public class Sand : Cell
         {
             world.Swap(x, y, x+dir, y-1);
             world.SetStepped(x+dir, y-1);
+        }
+        else if (world.IsEmpty(x-dir, y))
+        {
+            world.Swap(x, y, x-dir, y);
+            world.SetStepped(x-dir, y);
+        }
+        else if (world.IsEmpty(x+dir, y))
+        {
+            world.Swap(x, y, x+dir, y);
+            world.SetStepped(x+dir, y);
         }
         else
         {

@@ -69,7 +69,7 @@ protected override void OnUpdateFrame(FrameEventArgs args)
 
     if (IsMouseButtonDown(MouseButton.Left))
     {
-        world.SpawnSand((int)Math.Floor(MousePosition.X/Size.X*world.width), (int)Math.Ceiling((1 - MousePosition.Y/Size.Y)*world.height));
+        world.SpawnCell<Stone>((int)Math.Floor(MousePosition.X/Size.X*world.width), (int)Math.Ceiling((1 - MousePosition.Y/Size.Y)*world.height)-1);
     }
 
     world.Update();

@@ -49,11 +49,11 @@ public class World
         state = state = new Cell[height, width];
     }
 
-    public void SpawnSand(int x, int y)
+    public void SpawnCell<T>(int x, int y) where T : Cell, new()
     {
         if (IsEmpty(x, y))
         {
-            state[y, x] = new RainbowSand();
+            state[y, x] = new T();
         }
     }
 
