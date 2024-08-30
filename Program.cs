@@ -17,6 +17,6 @@ NativeWindowSettings nativeWindowSettings = new NativeWindowSettings()
 
 using (Game window = new(GameWindowSettings.Default, nativeWindowSettings))
 {
-    window.UpdateFrequency = 5;
+    window.UpdateFrequency = 10;
     window.Run();
 }

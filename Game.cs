@@ -15,7 +15,7 @@ public class Game : GameWindow
 
     private Texture? texture;
 
-    private readonly World world = new World(20, 20);
+    private readonly World world = new World(40, 40);
 
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
@@ -64,7 +64,6 @@ protected override void OnUpdateFrame(FrameEventArgs args)
 
     if (IsMouseButtonDown(MouseButton.Left))
     {
-        Console.WriteLine($"{Math.Floor(MousePosition.X/Size.X*world.width)}, {Math.Floor((1 - MousePosition.Y/Size.Y)*world.height)}");
         world.SpawnSand((int)Math.Floor(MousePosition.X/Size.X*world.width), (int)Math.Floor((1 - MousePosition.Y/Size.Y)*world.height));
     }
 

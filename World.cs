@@ -16,7 +16,6 @@ public class World
         this.width = width;
         this.height = height;
         state = new Cell[height, width];
-        state[height - 1, 0] = new Sand();
     }
 
     public void Update()
