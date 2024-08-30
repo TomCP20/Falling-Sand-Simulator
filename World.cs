@@ -26,15 +26,7 @@ public class World
         {
             for (int x = 0; x < width; x++)
             {
-                if (state[y, x] is Sand && isEmpty(x, y-1))
-                {
-                    nextState[y, x] = null;
-                    nextState[y - 1, x] = state[y, x];
-                }
-                else
-                {
-                    nextState[y, x] = state[y, x];
-                }
+                state[y, x]?.Update(this, nextState, x, y);
             }
         }
         state = nextState;
