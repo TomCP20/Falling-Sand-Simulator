@@ -5,7 +5,7 @@ namespace FallingSandSimulator;
 public class Water : Cell
 {
 
-    public Water() : base(new Vector3(0, 0, 1)) { }
+    public Water() : base((0, 0, 1)) { }
 
 
     public override void Update(World world, int x, int y)

@@ -5,9 +5,9 @@ namespace FallingSandSimulator;
 public class Sand : Cell
 {
 
-    public Sand() : base(new Vector3(1, 1, 0)) { }
+    public Sand() : base((1, 1, 0)) { }
 
-    protected Sand(Vector3 colour) : base(colour) { }
+    protected Sand((float, float, float) colour) : base(colour) { }
 
     public override void Update(World world, int x, int y)
     {

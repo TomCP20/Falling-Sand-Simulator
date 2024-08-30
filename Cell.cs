@@ -4,11 +4,11 @@ namespace FallingSandSimulator;
 
 public abstract class Cell
 {
-    public readonly Vector3 colour;
+    public readonly (float, float, float) colour;
 
     private static Random rand = new();
 
-    protected Cell(Vector3 colour)
+    protected Cell((float, float, float) colour)
     {
         this.colour = colour;
     }
