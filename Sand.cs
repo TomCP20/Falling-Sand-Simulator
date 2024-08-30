@@ -5,7 +5,7 @@ namespace FallingSandSimulator;
 public class Sand : Cell
 {
 
-    public Sand() : base((1, 1, 0)) { }
+    public Sand() : base(Colour.Noise((1, 1, 0), 0.1f)) { }
 
     protected Sand((float, float, float) colour) : base(colour) { }
 
