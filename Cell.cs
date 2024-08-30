@@ -15,7 +15,7 @@ public abstract class Cell
 
     public static int RandDirection()
     {
-        return new int[] {1, -1}[rand.Next(2)];
+        return new int[] { 1, -1 }[rand.Next(2)];
     }
     public abstract void Update(World world, int x, int y);
 }

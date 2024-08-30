@@ -17,6 +17,8 @@ public class Game : GameWindow
 
     private readonly World world = new World(80, 60);
 
+    private CellType spawnType = CellType.Sand;
+
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
@@ -41,7 +43,7 @@ public class Game : GameWindow
         base.OnRenderFrame(args);
 
         GL.Clear(ClearBufferMask.ColorBufferBit);
-        
+
         shader.Use();
 
         texture.Use(TextureUnit.Texture0);
@@ -49,50 +51,86 @@ public class Game : GameWindow
         quad.Draw();
 
         SwapBuffers();
-}
-
-protected override void OnUpdateFrame(FrameEventArgs args)
-{
-    Debug.Assert(texture != null);
-    Debug.Assert(world != null);
-    base.OnUpdateFrame(args);
-
-    if (KeyboardState.IsKeyDown(Keys.Escape))
-    {
-        Close();
     }
 
-    if (KeyboardState.IsKeyPressed(Keys.C))
+    protected override void OnUpdateFrame(FrameEventArgs args)
     {
-        world.Clear();
+        Debug.Assert(texture != null);
+        Debug.Assert(world != null);
+        base.OnUpdateFrame(args);
+
+        if (KeyboardState.IsKeyDown(Keys.Escape))
+        {
+            Close();
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.C))
+        {
+            world.Clear();
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.D1))
+        {
+            spawnType = CellType.Water;
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.D2))
+        {
+            spawnType = CellType.Sand;
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.D3))
+        {
+            spawnType = CellType.RainbowSand;
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.D4))
+        {
+            spawnType = CellType.Stone;
+        }
+
+        if (IsMouseButtonDown(MouseButton.Left))
+        {
+            int x = (int)Math.Floor(MousePosition.X / Size.X * world.width);
+            int y = (int)Math.Ceiling((1 - MousePosition.Y / Size.Y) * world.height) - 1;
+            switch (spawnType)
+            {
+                case CellType.Water:
+                    world.SpawnCell<Water>(x, y);
+                    break;
+                case CellType.Sand:
+                    world.SpawnCell<Sand>(x, y);
+                    break;
+                case CellType.RainbowSand:
+                    world.SpawnCell<RainbowSand>(x, y);
+                    break;
+                case CellType.Stone:
+                    world.SpawnCell<Stone>(x, y);
+                    break;
+            }
+        }
+
+        world.Update();
+        texture.update(world);
     }
 
-    if (IsMouseButtonDown(MouseButton.Left))
+
+    protected override void OnResize(ResizeEventArgs e)
     {
-        world.SpawnCell<Stone>((int)Math.Floor(MousePosition.X/Size.X*world.width), (int)Math.Ceiling((1 - MousePosition.Y/Size.Y)*world.height)-1);
+        base.OnResize(e);
+        GL.Viewport(0, 0, Size.X, Size.Y);
     }
 
-    world.Update();
-    texture.update(world);
-}
-
-
-protected override void OnResize(ResizeEventArgs e)
-{
-    base.OnResize(e);
-    GL.Viewport(0, 0, Size.X, Size.Y);
-}
-
-protected override void OnUnload()
-{
-    Debug.Assert(quad != null);
-    Debug.Assert(shader != null);
-    GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-    GL.BindVertexArray(0);
-    GL.UseProgram(0);
-    quad.Delete();
-    GL.DeleteProgram(shader.Handle);
-    base.OnUnload();
-}
+    protected override void OnUnload()
+    {
+        Debug.Assert(quad != null);
+        Debug.Assert(shader != null);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+        GL.BindVertexArray(0);
+        GL.UseProgram(0);
+        quad.Delete();
+        GL.DeleteProgram(shader.Handle);
+        base.OnUnload();
+    }
 
 }

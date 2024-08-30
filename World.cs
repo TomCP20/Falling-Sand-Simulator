@@ -44,6 +44,11 @@ public class World
         stepped[y, x] = true;
     }
 
+    public bool IsStepped(int x, int y)
+    {
+        return stepped[y, x];
+    }
+
     public void Clear()
     {
         state = state = new Cell[height, width];
@@ -64,6 +69,15 @@ public class World
             return false;
         }
         return state[y, x] == null;
+    }
+
+    public bool IsDisplaceable(int x, int y)
+    {
+        if (!InBounds(x, y))
+        {
+            return false;
+        }
+        return (state[y, x] is Water) || state[y, x] == null;
     }
 
     public bool InBounds(int x, int y)
