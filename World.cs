@@ -31,9 +31,14 @@ public class World
         state = nextState;
     }
 
+    public void Clear()
+    {
+        state = state = new Cell[height, width];
+    }
+
     public void SpawnSand(int x, int y)
     {
-        if (InBounds(x, y))
+        if (IsEmpty(x, y))
         {
             state[y, x] = new Sand();
         }

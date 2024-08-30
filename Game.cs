@@ -62,6 +62,11 @@ protected override void OnUpdateFrame(FrameEventArgs args)
         Close();
     }
 
+    if (KeyboardState.IsKeyPressed(Keys.C))
+    {
+        world.Clear();
+    }
+
     if (IsMouseButtonDown(MouseButton.Left))
     {
         world.SpawnSand((int)Math.Floor(MousePosition.X/Size.X*world.width), (int)Math.Ceiling((1 - MousePosition.Y/Size.Y)*world.height));
