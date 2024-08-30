@@ -14,6 +14,8 @@ public class World
 
     public readonly int height;
 
+    private static Random rand = new();
+
     public World(int width, int height)
     {
         this.width = width;
@@ -25,13 +27,28 @@ public class World
     public void Update()
     {
         stepped = new bool[height, width];
-        for (int y = 0; y < height; y++)
+        foreach (int x in ShuffleXs())
         {
-            for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
             {
-                state[y, x]?.Update(this, x, y);
+                if (!stepped[y, x])
+                {
+                    state[y, x]?.Update(this, x, y);
+                }
             }
         }
+    }
+
+    private int[] ShuffleXs()
+    {
+        int[] x = Enumerable.Range(0, width).ToArray();
+        int n = width;
+        while (n > 1)
+        {
+            int k = rand.Next(n--);
+            (x[k], x[n]) = (x[n], x[k]);
+        }
+        return x;
     }
 
     public void Swap(int x1, int y1, int x2, int y2)
@@ -42,11 +59,6 @@ public class World
     public void SetStepped(int x, int y)
     {
         stepped[y, x] = true;
-    }
-
-    public bool IsStepped(int x, int y)
-    {
-        return stepped[y, x];
     }
 
     public void Clear()
