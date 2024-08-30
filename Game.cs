@@ -15,7 +15,7 @@ public class Game : GameWindow
 
     private Texture? texture;
 
-    private World? world;
+    private readonly World world = new World(4, 5);
 
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
@@ -29,8 +29,6 @@ public class Game : GameWindow
         quad = new QuadMesh();
 
         shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag");
-
-        world = new World(4, 5);
 
         texture = Texture.fromWorld(world);
     }
@@ -65,7 +63,7 @@ protected override void OnUpdateFrame(FrameEventArgs args)
     }
 
     world.Update();
-
+    texture.update(world);
 }
 
 

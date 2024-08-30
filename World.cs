@@ -1,44 +1,71 @@
+using System.Security.Cryptography.X509Certificates;
 using OpenTK.Mathematics;
 
 namespace FallingSandSimulator;
 
 public class World
 {
-    private readonly Cell[,] state;
+    private Cell?[,] state;
 
-    public readonly Vector2i size;
+    public readonly int width;
+
+    public readonly int height;
 
     public World(int width, int height)
     {
-        size = new Vector2i(width, height);
+        this.width = width;
+        this.height = height;
         state = new Cell[height, width];
-        state[0, 0] = new Cell(new Vector3(1, 0, 0));
-        state[0, 1] = new Cell(new Vector3(0, 1, 0));
-        state[1, 0] = new Cell(new Vector3(0, 0, 1));
+        state[height - 1, 0] = new Sand();
     }
 
     public void Update()
     {
-        for (int i = 0; i < state.GetLength(0); i++)
+        Cell?[,] nextState = new Cell[height, width];
+        for (int y = 0; y < height; y++)
         {
-            for (int j = 0; j < state.GetLength(1); j++)
+            for (int x = 0; x < width; x++)
             {
-                Cell cell = state[i, j];
+                if (state[y, x] is Sand && isEmpty(x, y-1))
+                {
+                    Console.WriteLine(y + " " + x);
+                    nextState[y, x] = null;
+                    nextState[y - 1, x] = state[y, x];
+                }
+                else
+                {
+                    nextState[y, x] = state[y, x];
+                }
             }
         }
+        state = nextState;
+    }
+
+    public void spawnSand(int x, int y)
+    {
+        state[y, x] = new Sand();
+    }
+
+    public bool isEmpty(int x, int y)
+    {
+        if (0 > x || x >= width || 0 > y || y >= height)
+        {
+            return false;
+        }
+        return state[y, x] == null;
     }
 
 
     public float[] toArray()
     {
-        float[] array = new float[3 * size.X * size.Y];
+        float[] array = new float[3 * width * height];
 
-        for (int i = 0; i < state.GetLength(0); i++)
+        for (int y = 0; y < height; y++)
         {
-            for (int j = 0; j < state.GetLength(1); j++)
+            for (int x = 0; x < width; x++)
             {
-                int index = i * state.GetLength(1) + j;
-                Cell cell = state[i, j];
+                int index = y * width + x;
+                Cell? cell = state[y, x];
                 Vector3 col;
                 if (cell == null)
                 {
