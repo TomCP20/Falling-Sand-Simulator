@@ -9,7 +9,7 @@ public class Sand : Cell
 
     public override void Update(World world, Cell?[,] nextState, int x, int y)
     {
-        if (world.isEmpty(x, y-1))
+        if (world.IsEmpty(x, y-1))
         {
             nextState[y, x] = null;
             nextState[y - 1, x] = this;

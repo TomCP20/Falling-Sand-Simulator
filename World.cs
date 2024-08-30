@@ -32,18 +32,26 @@ public class World
         state = nextState;
     }
 
-    public void spawnSand(int x, int y)
+    public void SpawnSand(int x, int y)
     {
-        state[y, x] = new Sand();
+        if (InBounds(x, y))
+        {
+            state[y, x] = new Sand();
+        }
     }
 
-    public bool isEmpty(int x, int y)
+    public bool IsEmpty(int x, int y)
     {
-        if (0 > x || x >= width || 0 > y || y >= height)
+        if (!InBounds(x, y))
         {
             return false;
         }
         return state[y, x] == null;
+    }
+
+    public bool InBounds(int x, int y)
+    {
+        return 0 <= x && x < width && 0 <= y && y < height;
     }
 
 
