@@ -96,16 +96,16 @@ public class Game : GameWindow
             switch (spawnType)
             {
                 case CellType.Water:
-                    world.SpawnCell<Water>(x, y);
+                    world.SpawnMultipleCells<Water>(x, y, 1);
                     break;
                 case CellType.Sand:
-                    world.SpawnCell<Sand>(x, y);
+                    world.SpawnMultipleCells<Sand>(x, y, 1);
                     break;
                 case CellType.RainbowSand:
-                    world.SpawnCell<RainbowSand>(x, y);
+                    world.SpawnMultipleCells<RainbowSand>(x, y, 1);
                     break;
                 case CellType.Stone:
-                    world.SpawnCell<Stone>(x, y);
+                    world.SpawnMultipleCells<Stone>(x, y, 1);
                     break;
             }
         }

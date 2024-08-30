@@ -62,6 +62,17 @@ public class World
         }
     }
 
+    public void SpawnMultipleCells<T>(int x, int y, int radius) where T : Cell, new()
+    {
+        for (int yi = y-radius; yi <= y+radius; yi++)
+        {
+            for (int xi = x-radius; xi <= x+radius; xi++)
+            {
+                SpawnCell<T>(xi, yi);
+            }
+        }
+    }
+
     public bool IsEmpty(int x, int y)
     {
         if (!InBounds(x, y))
