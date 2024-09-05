@@ -2,7 +2,7 @@ using OpenTK.Mathematics;
 
 namespace FallingSandSimulator;
 
-public class RainbowSand : Sand
+public class RainbowSand : Falling
 {
     static float hue = 0;
 
