@@ -26,4 +26,10 @@ static class Colour
         val += (rand.NextSingle() * 2 - 1) * variation; //chages by -var to +var
         return Math.Clamp(val, 0, 1);
     }
+
+    public static (float, float, float) GreyNoise(float val, float variation)
+    {
+        float scale = Noise(val, variation);
+        return (scale, scale, scale);
+    }
 }
