@@ -114,7 +114,7 @@ public class World
         {
             return false;
         }
-        return (state[y, x] is Water) || state[y, x] == null;
+        return ((state[y, x] is Water) || state[y, x] == null) && !stepped[y, x];
     }
 
     public bool InBounds(int x, int y)
