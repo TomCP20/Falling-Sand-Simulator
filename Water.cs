@@ -13,28 +13,23 @@ public class Water : Cell
         int dir = RandDirection();
         if (world.IsEmpty(x, y - 1))
         {
-            world.Swap(x, y, x, y - 1);
-            world.SetStepped(x, y - 1);
+            world.MoveTo(x, y, x, y - 1);
         }
         else if (world.IsEmpty(x - dir, y - 1))
         {
-            world.Swap(x, y, x - dir, y - 1);
-            world.SetStepped(x - dir, y - 1);
+            world.MoveTo(x, y, x - dir, y - 1);
         }
         else if (world.IsEmpty(x + dir, y - 1))
         {
-            world.Swap(x, y, x + dir, y - 1);
-            world.SetStepped(x + dir, y - 1);
+            world.MoveTo(x, y, x + dir, y - 1);
         }
         else if (world.IsEmpty(x - dir, y))
         {
-            world.Swap(x, y, x - dir, y);
-            world.SetStepped(x - dir, y);
+            world.MoveTo(x, y, x - dir, y);
         }
         else if (world.IsEmpty(x + dir, y))
         {
-            world.Swap(x, y, x + dir, y);
-            world.SetStepped(x + dir, y);
+            world.MoveTo(x, y, x + dir, y);
         }
         else
         {

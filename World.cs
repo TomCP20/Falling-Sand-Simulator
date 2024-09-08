@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
@@ -54,6 +55,14 @@ public class World
     public void Swap(int x1, int y1, int x2, int y2)
     {
         (state[y2, x2], state[y1, x1]) = (state[y1, x1], state[y2, x2]);
+    }
+
+    public void MoveTo(int x1, int y1, int x2, int y2)
+    {
+        Debug.Assert(state[y2, x2] == null);
+        state[y2, x2] = state[y1, x1];
+        state[y1, x1] = null;
+        SetStepped(x2, y2);
     }
 
     public void SetStepped(int x, int y)
@@ -114,7 +123,7 @@ public class World
         {
             return false;
         }
-        return ((state[y, x] is Water) || state[y, x] == null) && !stepped[y, x];
+        return (state[y, x] is Water) && !stepped[y, x];
     }
 
     public bool InBounds(int x, int y)
