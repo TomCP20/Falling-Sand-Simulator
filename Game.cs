@@ -20,6 +20,8 @@ public class Game : GameWindow
 
     private readonly int brushSize = 8;
 
+    private bool playing = true;
+
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
@@ -63,6 +65,11 @@ public class Game : GameWindow
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
             Close();
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.Space))
+        {
+            playing = !playing;
         }
 
         if (KeyboardState.IsKeyPressed(Keys.C))
@@ -114,8 +121,10 @@ public class Game : GameWindow
                     break;
             }
         }
-
-        world.Update();
+        if (playing)
+        {
+            world.Update();
+        }
         texture.update(world);
     }
 

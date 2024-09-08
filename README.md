@@ -20,6 +20,7 @@ To build this project, use the command `dotnet build` in the project's base fold
 * press <kbd>3</kbd> to select stone.
 * press <kbd>C</kbd> to clear the screen.
 * press <kbd>ESC</kbd> to exit the program.
+* press <kbd>Space</kbd> to pause / resume the program.
 
 ## References
 
