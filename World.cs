@@ -110,20 +110,12 @@ public class World
 
     public bool IsEmpty(int x, int y)
     {
-        if (!InBounds(x, y))
-        {
-            return false;
-        }
-        return state[y, x] == null;
+        return InBounds(x, y) && state[y, x] == null;
     }
 
     public bool IsDisplaceable(int x, int y)
     {
-        if (!InBounds(x, y))
-        {
-            return false;
-        }
-        return (state[y, x] is Water) && !stepped[y, x];
+        return InBounds(x, y) && (state[y, x] is Water) && !stepped[y, x];
     }
 
     public bool InBounds(int x, int y)
