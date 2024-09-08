@@ -1,7 +1,9 @@
 # Falling Sand Simulator
 
- A falling sand simulation written in C# using OpenTK for the graphics. 
- 
+A falling sand simulation written in C# using OpenTK for the graphics.
+
+![Screenshot](/Screenshots/1.png)
+
 ## Build And Run
 
 To run this project, use the command `dotnet run` in the project's base folder.
