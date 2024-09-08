@@ -10,7 +10,7 @@ public class RainbowSand : Falling
     {
         hue %= 1;
         (float, float, float) col = Colour.HueToRgb(hue);
-        hue += 1.0f/360.0f;
+        hue += 1f/3600f;
         return col;
     }
 
