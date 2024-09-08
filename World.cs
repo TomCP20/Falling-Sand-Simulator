@@ -55,6 +55,8 @@ public class World
     public void Swap(int x1, int y1, int x2, int y2)
     {
         (state[y2, x2], state[y1, x1]) = (state[y1, x1], state[y2, x2]);
+        SetStepped(x1, y1);
+        SetStepped(x2, y2);
     }
 
     public void MoveTo(int x1, int y1, int x2, int y2)
@@ -115,7 +117,7 @@ public class World
 
     public bool IsDisplaceable(int x, int y)
     {
-        return InBounds(x, y) && (state[y, x] is Water) && !stepped[y, x];
+        return InBounds(x, y) && (state[y, x] is Water);
     }
 
     public bool InBounds(int x, int y)
