@@ -4,10 +4,9 @@ namespace FallingSandSimulator;
 
 public class QuadMesh : Mesh
 {
-    public QuadMesh() : base(6)
-    {
-        float[] vertices = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-        // positions   // texCoords
+    public QuadMesh() : base(
+        6,
+        [
         -1.0f,  1.0f,  0.0f, 1.0f,
         -1.0f, -1.0f,  0.0f, 0.0f,
          1.0f, -1.0f,  1.0f, 0.0f,
@@ -15,8 +14,13 @@ public class QuadMesh : Mesh
         -1.0f,  1.0f,  0.0f, 1.0f,
          1.0f, -1.0f,  1.0f, 0.0f,
          1.0f,  1.0f,  1.0f, 1.0f
-    };
-        
+        ]
+        ) {}
+
+
+    new public void SetUp()
+    {
+        base.SetUp();
         GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);   
 
         GL.EnableVertexAttribArray(0);
@@ -24,5 +28,6 @@ public class QuadMesh : Mesh
         
         GL.EnableVertexAttribArray(1);
         GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), 2 * sizeof(float));
+
     }
 }

@@ -6,13 +6,20 @@ public abstract class Mesh
 {
     public readonly int vertexCount;
 
-    private readonly int vertexBufferObject;
+    private int vertexBufferObject;
 
-    private readonly int vertexArrayObject;
+    private int vertexArrayObject;
 
-    protected Mesh(int vertexCount)
+    protected float[] vertices;
+
+    protected Mesh(int vertexCount, float[] vertices)
     {
         this.vertexCount = vertexCount;
+        this.vertices = vertices;
+    }
+
+    protected void SetUp()
+    {
         vertexArrayObject = GL.GenVertexArray();
         GL.BindVertexArray(vertexArrayObject);
 
