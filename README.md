@@ -23,6 +23,7 @@ To build this project, use the command `dotnet build` in the project's base fold
 * press <kbd>H</kbd> to show / hide the ui, e.g. the brush outline.
 * press <kbd>Esc</kbd> to exit the program.
 * press <kbd>Space</kbd> to pause / resume the program.
+* press <kbd>→</kbd> to step the program while paused.
 
 ## References
 

@@ -91,7 +91,7 @@ public class Game : GameWindow
             world.DrawBrush(brush);
         }
 
-        if (playing)
+        if (playing || KeyboardState.IsKeyPressed(Keys.Right))
         {
             world.Update();
         }
