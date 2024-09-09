@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -16,16 +17,18 @@ public class Game : GameWindow
 
     private readonly World world = new World(640, 480);
 
-    private CellType spawnType = CellType.Sand;
+    private readonly Brush brush;
 
-    private int brushSize = 15;
 
     private bool playing = true;
 
     private bool showUI = true;
 
 
-    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
+    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
+    {
+        brush = new(Size, new Vector2i(640, 480));
+    }
 
     protected override void OnLoad()
     {
@@ -64,8 +67,9 @@ public class Game : GameWindow
         Debug.Assert(world != null);
         base.OnUpdateFrame(args);
 
-        int x = (int)Math.Floor(MousePosition.X / Size.X * world.width);
-        int y = (int)Math.Ceiling((1 - MousePosition.Y / Size.Y) * world.height) - 1;
+        brush.Update(KeyboardState, MouseState, MousePosition);
+
+        
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -87,59 +91,16 @@ public class Game : GameWindow
             world.Clear();
         }
 
-        if (KeyboardState.IsKeyPressed(Keys.D0))
-        {
-            spawnType = CellType.Empty;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D1))
-        {
-            spawnType = CellType.Water;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D2))
-        {
-            spawnType = CellType.Sand;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D3))
-        {
-            spawnType = CellType.RainbowSand;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D4))
-        {
-            spawnType = CellType.Stone;
-        }
-
-        brushSize += (int)MouseState.ScrollDelta.Y;
-
-        brushSize = Math.Clamp(brushSize, 0, 50);
-
         if (IsMouseButtonDown(MouseButton.Left))
         {
-
-            switch (spawnType)
-            {
-                case CellType.Empty:
-                    world.EraseMultipleCells(x, y, brushSize);
-                    break;
-                case CellType.Water:
-                    world.SpawnMultipleCells<Water>(x, y, brushSize);
-                    break;
-                case CellType.Sand:
-                    world.SpawnMultipleCells<Sand>(x, y, brushSize);
-                    break;
-                case CellType.RainbowSand:
-                    world.SpawnMultipleCells<RainbowSand>(x, y, brushSize);
-                    break;
-                case CellType.Stone:
-                    world.SpawnMultipleCells<Stone>(x, y, brushSize);
-                    break;
-            }
+            world.DrawBrush(brush);
         }
 
         if (playing)
         {
             world.Update();
         }
-        texture.update(world.ToArray(x, y, brushSize, showUI));
+        texture.update(world.ToArray(brush.Pos.X, brush.Pos.Y, brush.size, showUI));
     }
 
 

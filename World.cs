@@ -85,22 +85,44 @@ public class World
         }
     }
 
-    public void SpawnMultipleCells<T>(int x, int y, int radius) where T : Cell, new()
+    public void DrawBrush(Brush brush)
     {
-        for (int yi = y - radius; yi <= y + radius; yi++)
+        switch (brush.spawnType)
         {
-            for (int xi = x - radius; xi <= x + radius; xi++)
+            case CellType.Empty:
+                EraseMultipleCells(brush);
+                break;
+            case CellType.Water:
+                SpawnMultipleCells<Water>(brush);
+                break;
+            case CellType.Sand:
+                SpawnMultipleCells<Sand>(brush);
+                break;
+            case CellType.RainbowSand:
+                SpawnMultipleCells<RainbowSand>(brush);
+                break;
+            case CellType.Stone:
+                SpawnMultipleCells<Stone>(brush);
+                break;
+        }
+    }
+
+    public void SpawnMultipleCells<T>(Brush brush) where T : Cell, new()
+    {
+        for (int yi = brush.Pos.Y - brush.size; yi <= brush.Pos.Y + brush.size; yi++)
+        {
+            for (int xi = brush.Pos.X - brush.size; xi <= brush.Pos.X + brush.size; xi++)
             {
                 SpawnCell<T>(xi, yi);
             }
         }
     }
 
-    public void EraseMultipleCells(int x, int y, int radius)
+    public void EraseMultipleCells(Brush brush)
     {
-        for (int yi = y - radius; yi <= y + radius; yi++)
+        for (int yi = brush.Pos.Y - brush.size; yi <= brush.Pos.Y + brush.size; yi++)
         {
-            for (int xi = x - radius; xi <= x + radius; xi++)
+            for (int xi = brush.Pos.X - brush.size; xi <= brush.Pos.X + brush.size; xi++)
             {
                 if (InBounds(xi, yi))
                 {

@@ -1,6 +1,6 @@
 namespace FallingSandSimulator;
 
-enum CellType
+public enum CellType
 {
     Empty,
     Water,
