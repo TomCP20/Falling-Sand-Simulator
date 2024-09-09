@@ -137,7 +137,7 @@ public class World
                 Vector3 col;
                 if (((x == mouseX + brushSize || x == mouseX - brushSize) && y <= mouseY + brushSize && y >= mouseY - brushSize) || ((y == mouseY + brushSize || y == mouseY - brushSize) && x <= mouseX + brushSize && x >= mouseX - brushSize))
                 {
-                    col = new Vector3(1, 0, 0);
+                    col = new Vector3(1, 1, 1);
                 }
                 else
                 {

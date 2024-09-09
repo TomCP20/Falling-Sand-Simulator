@@ -18,7 +18,7 @@ public class Game : GameWindow
 
     private CellType spawnType = CellType.Sand;
 
-    private readonly int brushSize = 8;
+    private int brushSize = 15;
 
     private bool playing = true;
 
@@ -101,9 +101,13 @@ public class Game : GameWindow
             spawnType = CellType.Stone;
         }
 
+        brushSize += (int)MouseState.ScrollDelta.Y;
+
+        brushSize = Math.Clamp(brushSize, 0, 50);
+
         if (IsMouseButtonDown(MouseButton.Left))
         {
-            
+
             switch (spawnType)
             {
                 case CellType.Empty:
@@ -123,6 +127,7 @@ public class Game : GameWindow
                     break;
             }
         }
+
         if (playing)
         {
             world.Update();

@@ -13,6 +13,7 @@ To build this project, use the command `dotnet build` in the project's base fold
 ## Controls
 
 * press the left mouse button to spawn the selected material in a square around where the user clicked.
+* use the scroll wheel to change the size of the brush.
 * press <kbd>0</kbd> to select erase mode.
 * press <kbd>1</kbd> to select water.
 * press <kbd>2</kbd> to select sand.
