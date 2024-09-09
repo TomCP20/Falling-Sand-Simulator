@@ -52,4 +52,9 @@ public class Brush
         Pos.Y = (int)Math.Ceiling((1 - MousePosition.Y / screenSize.Y) * worldSize.Y) - 1;
     }
 
+    public bool onBorder(int x, int y)
+    {
+        return ((x == Pos.X + size || x == Pos.X - size) && y <= Pos.Y + size && y >= Pos.Y - size) || ((y == Pos.Y + size || y == Pos.Y - size) && x <= Pos.X + size && x >= Pos.X - size);
+    }
+
 }

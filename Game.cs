@@ -11,7 +11,7 @@ public class Game : GameWindow
     private readonly QuadMesh quad = new();
 
     private readonly Shader shader = new();
-    
+
     private readonly Texture texture;
 
     private readonly World world;
@@ -95,7 +95,7 @@ public class Game : GameWindow
         {
             world.Update();
         }
-        texture.update(world.ToArray(brush.Pos.X, brush.Pos.Y, brush.size, showUI));
+        texture.update(world.ToArray(brush, showUI));
     }
 
     protected override void OnUnload()
