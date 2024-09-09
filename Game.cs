@@ -37,7 +37,7 @@ public class Game : GameWindow
 
         shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag");
 
-        texture = Texture.setupTexture(world);
+        texture = Texture.setupTexture(world.width, world.height);
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -139,7 +139,7 @@ public class Game : GameWindow
         {
             world.Update();
         }
-        texture.update(world, x, y, brushSize, showUI);
+        texture.update(world.ToArray(x, y, brushSize, showUI));
     }
 
 
