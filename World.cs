@@ -138,17 +138,17 @@ public class World(Vector2i size)
         {
             for (int x = 0; x < size.X; x++)
             {
-                Vector3 col;
+                (float, float, float) col;
                 if (showUI && brush.OnBorder(x, y))
                 {
-                    col = new Vector3(1, 1, 1);
+                    col = (1, 1, 1);
                 }
                 else
                 {
                     Cell? cell = state[y, x];
                     if (cell == null)
                     {
-                        col = new Vector3(0, 0, 0);
+                        col = (0, 0, 0);
                     }
                     else
                     {
@@ -156,10 +156,10 @@ public class World(Vector2i size)
                     }
                 }
                 int index = y * size.X + x;
-                for (int k = 0; k < 3; k++)
-                {
-                    array[index * 3 + k] = col[k];
-                }
+
+                array[index * 3 + 0] = col.Item1;
+                array[index * 3 + 1] = col.Item2;
+                array[index * 3 + 2] = col.Item3;
             }
         }
         return array;

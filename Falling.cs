@@ -4,34 +4,15 @@ public abstract class Falling((float, float, float) colour) : Cell(colour)
 {
     public override void Update(World world, int x, int y)
     {
-        int dir = RandDirection();
-        if (world.IsEmpty(x, y - 1))
+        (int, int)[] deltas = [(0, -1), (-1, -1), (1, -1)];
+        if(AttemptMoves(world, x, y, deltas))
         {
-            world.MoveTo(x, y, x, y - 1);
+            return;
         }
-        else if (world.IsEmpty(x - dir, y - 1))
+        if(AttemptDisplacements(world, x, y, deltas))
         {
-            world.MoveTo(x, y, x - dir, y - 1);
+            return;
         }
-        else if (world.IsEmpty(x + dir, y - 1))
-        {
-            world.MoveTo(x, y, x + dir, y - 1);
-        }
-        else if (world.IsDisplaceable(x, y - 1))
-        {
-            world.Swap(x, y, x, y - 1);
-        }
-        else if (world.IsDisplaceable(x - dir, y - 1))
-        {
-            world.Swap(x, y, x - dir, y - 1);
-        }
-        else if (world.IsDisplaceable(x + dir, y - 1))
-        {
-            world.Swap(x, y, x + dir, y - 1);
-        }
-        else
-        {
-            world.SetStepped(x, y);
-        }
+        world.SetStepped(x, y);
     }
 }
