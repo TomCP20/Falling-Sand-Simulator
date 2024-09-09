@@ -3,25 +3,18 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace FallingSandSimulator;
 
-public class Brush
+public class Brush(Vector2i screenSize, Vector2i worldSize)
 {
     public int size = 15;
 
     public CellType spawnType = CellType.Sand;
 
-    public Vector2i Pos = new Vector2i(-1, -1);
+    public Vector2i Pos;
 
-    private Vector2i screenSize;
-    private Vector2i worldSize;
+    private Vector2i screenSize = screenSize;
+    private Vector2i worldSize = worldSize;
 
-    public Brush(Vector2i screenSize, Vector2i worldSize) 
-    {
-        this.screenSize = screenSize;
-        this.worldSize = worldSize;
-    }
-
-
-    public void Update(KeyboardState KeyboardState, MouseState MouseState, Vector2 MousePosition)
+    public void Update(KeyboardState KeyboardState, int ScrollDelta, Vector2 MousePosition)
     {
         if (KeyboardState.IsKeyPressed(Keys.D0))
         {
@@ -44,9 +37,7 @@ public class Brush
             spawnType = CellType.Stone;
         }
 
-        size += (int)MouseState.ScrollDelta.Y;
-
-        size = Math.Clamp(size, 0, 50);
+        size = Math.Clamp(size + ScrollDelta, 0, 50);
 
         Pos.X = (int)Math.Floor(MousePosition.X / screenSize.X * worldSize.X);
         Pos.Y = (int)Math.Ceiling((1 - MousePosition.Y / screenSize.Y) * worldSize.Y) - 1;

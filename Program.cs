@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
-NativeWindowSettings nativeWindowSettings = new NativeWindowSettings()
+NativeWindowSettings nativeWindowSettings = new()
 {
     Title = "Falling Sand Simulator",
     Flags = ContextFlags.ForwardCompatible,

@@ -1,17 +1,10 @@
-using OpenTK.Mathematics;
-
 namespace FallingSandSimulator;
 
-public abstract class Cell
+public abstract class Cell((float, float, float) colour)
 {
-    public readonly (float, float, float) colour;
+    public readonly (float, float, float) colour = colour;
 
-    private static Random rand = new();
-
-    protected Cell((float, float, float) colour)
-    {
-        this.colour = colour;
-    }
+    private static readonly Random rand = new();
 
     public static int RandDirection()
     {

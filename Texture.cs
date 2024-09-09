@@ -1,6 +1,5 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 
 namespace FallingSandSimulator;
 
@@ -29,7 +28,7 @@ public class Texture(Vector2i worldSize)
         GL.BindTexture(TextureTarget.Texture2D, Handle);
     }
 
-    public void update(float[] array)
+    public void Update(float[] array)
     {
         GL.BindTexture(TextureTarget.Texture2D, Handle);
         GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, worldSize.X, worldSize.Y, 0, PixelFormat.Rgb, PixelType.Float, array);

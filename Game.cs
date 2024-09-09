@@ -62,9 +62,7 @@ public class Game : GameWindow
     {
         base.OnUpdateFrame(args);
 
-        brush.Update(KeyboardState, MouseState, MousePosition);
-
-        
+        brush.Update(KeyboardState, (int)MouseState.ScrollDelta.Y, MousePosition);
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -95,7 +93,8 @@ public class Game : GameWindow
         {
             world.Update();
         }
-        texture.update(world.ToArray(brush, showUI));
+        
+        texture.Update(world.ToArray(brush, showUI));
     }
 
     protected override void OnUnload()

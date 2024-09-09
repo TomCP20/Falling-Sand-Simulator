@@ -1,11 +1,7 @@
-using OpenTK.Mathematics;
-
 namespace FallingSandSimulator;
 
-public abstract class Falling : Cell
+public abstract class Falling((float, float, float) colour) : Cell(colour)
 {
-    protected Falling((float, float, float) colour) : base(colour) { }
-
     public override void Update(World world, int x, int y)
     {
         int dir = RandDirection();

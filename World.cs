@@ -1,27 +1,17 @@
 using System.Diagnostics;
-using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 namespace FallingSandSimulator;
 
-public class World
+public class World(Vector2i size)
 {
-    private Cell?[,] state;
+    private Cell?[,] state = new Cell[size.Y, size.X];
 
-    private bool[,] stepped;
+    private bool[,] stepped = new bool[size.Y, size.X];
 
-    public readonly Vector2i size;
+    public readonly Vector2i size = size;
 
-    private static Random rand = new();
-
-    public World(Vector2i size)
-    {
-        this.size = size;
-        state = new Cell[size.Y, size.X];
-        stepped = new bool[size.Y, size.X];
-    }
+    private static readonly Random rand = new();
 
     public void Update()
     {

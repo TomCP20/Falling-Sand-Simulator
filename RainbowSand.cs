@@ -1,5 +1,3 @@
-using OpenTK.Mathematics;
-
 namespace FallingSandSimulator;
 
 public class RainbowSand : Falling

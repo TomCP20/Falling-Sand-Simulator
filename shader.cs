@@ -12,7 +12,7 @@ public class Shader
     public Shader()
     {
         
-        _uniformLocations = new Dictionary<string, int>();
+        _uniformLocations = [];
     }
 
     public void SetUp(string vertPath, string fragPath)
