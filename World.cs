@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
@@ -11,26 +12,23 @@ public class World
 
     private bool[,] stepped;
 
-    public readonly int width;
-
-    public readonly int height;
+    public readonly Vector2i size;
 
     private static Random rand = new();
 
-    public World(int width, int height)
+    public World(Vector2i size)
     {
-        this.width = width;
-        this.height = height;
-        state = new Cell[height, width];
-        stepped = new bool[height, width];
+        this.size = size;
+        state = new Cell[size.Y, size.X];
+        stepped = new bool[size.Y, size.X];
     }
 
     public void Update()
     {
-        stepped = new bool[height, width];
+        stepped = new bool[size.Y, size.X];
         foreach (int x in ShuffleXs())
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < size.Y; y++)
             {
                 if (!stepped[y, x])
                 {
@@ -42,8 +40,8 @@ public class World
 
     private int[] ShuffleXs()
     {
-        int[] x = Enumerable.Range(0, width).ToArray();
-        int n = width;
+        int[] x = Enumerable.Range(0, size.X).ToArray();
+        int n = size.X;
         while (n > 1)
         {
             int k = rand.Next(n--);
@@ -74,7 +72,7 @@ public class World
 
     public void Clear()
     {
-        state = state = new Cell[height, width];
+        state = state = new Cell[size.Y, size.X];
     }
 
     public void SpawnCell<T>(int x, int y) where T : Cell?, new()
@@ -144,17 +142,17 @@ public class World
 
     public bool InBounds(int x, int y)
     {
-        return 0 <= x && x < width && 0 <= y && y < height;
+        return 0 <= x && x < size.X && 0 <= y && y < size.Y;
     }
 
 
     public float[] ToArray(int mouseX, int mouseY, int brushSize, bool showUI)
     {
-        float[] array = new float[3 * width * height];
+        float[] array = new float[3 * size.X * size.Y];
 
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < size.Y; y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < size.X; x++)
             {
                 Vector3 col;
                 if (showUI && (((x == mouseX + brushSize || x == mouseX - brushSize) && y <= mouseY + brushSize && y >= mouseY - brushSize) || ((y == mouseY + brushSize || y == mouseY - brushSize) && x <= mouseX + brushSize && x >= mouseX - brushSize)))
@@ -173,7 +171,7 @@ public class World
                         col = cell.colour;
                     }
                 }
-                int index = y * width + x;
+                int index = y * size.X + x;
                 for (int k = 0; k < 3; k++)
                 {
                     array[index * 3 + k] = col[k];

@@ -1,4 +1,5 @@
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -10,7 +11,7 @@ public class Game : GameWindow
     private readonly QuadMesh quad = new();
 
     private readonly Shader shader = new();
-
+    
     private readonly Texture texture;
 
     private readonly World world;
@@ -22,11 +23,11 @@ public class Game : GameWindow
     private bool showUI = true;
 
 
-    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
+    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, Vector2i worldSize) : base(gameWindowSettings, nativeWindowSettings)
     {
-        world = new(640, 480);
-        brush = new(Size, new(640, 480));
-        texture = new(640, 480);
+        world = new(worldSize);
+        brush = new(Size, worldSize);
+        texture = new(worldSize);
     }
 
     protected override void OnLoad()

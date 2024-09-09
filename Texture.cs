@@ -1,9 +1,10 @@
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 
 namespace FallingSandSimulator;
 
-public class Texture(int width, int height)
+public class Texture(Vector2i worldSize)
 {
     public int Handle;
 
@@ -13,7 +14,7 @@ public class Texture(int width, int height)
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, Handle);
 
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, width, height, 0, PixelFormat.Rgb, PixelType.Float, nint.Zero);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, worldSize.X, worldSize.Y, 0, PixelFormat.Rgb, PixelType.Float, nint.Zero);
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
@@ -31,6 +32,6 @@ public class Texture(int width, int height)
     public void update(float[] array)
     {
         GL.BindTexture(TextureTarget.Texture2D, Handle);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, width, height, 0, PixelFormat.Rgb, PixelType.Float, array);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, worldSize.X, worldSize.Y, 0, PixelFormat.Rgb, PixelType.Float, array);
     }
 }
