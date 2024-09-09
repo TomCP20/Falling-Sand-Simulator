@@ -1,24 +1,22 @@
 using System.Diagnostics;
-using OpenTK.Mathematics;
 
 namespace FallingSandSimulator;
 
-public class World(Vector2i size)
+public class World(int width, int height)
 {
-    private Cell?[,] state = new Cell[size.Y, size.X];
+    private Cell?[,] state = new Cell[height, width];
 
-    private bool[,] stepped = new bool[size.Y, size.X];
+    private bool[,] stepped = new bool[height, width];
 
-    public readonly Vector2i size = size;
 
     private static readonly Random rand = new();
 
     public void Update()
     {
-        stepped = new bool[size.Y, size.X];
+        stepped = new bool[height, width];
         foreach (int x in ShuffleXs())
         {
-            for (int y = 0; y < size.Y; y++)
+            for (int y = 0; y < height; y++)
             {
                 if (!stepped[y, x])
                 {
@@ -30,8 +28,8 @@ public class World(Vector2i size)
 
     private int[] ShuffleXs()
     {
-        int[] x = Enumerable.Range(0, size.X).ToArray();
-        int n = size.X;
+        int[] x = Enumerable.Range(0, width).ToArray();
+        int n = width;
         while (n > 1)
         {
             int k = rand.Next(n--);
@@ -62,7 +60,7 @@ public class World(Vector2i size)
 
     public void Clear()
     {
-        state = state = new Cell[size.Y, size.X];
+        state = state = new Cell[height, width];
     }
 
     public void SpawnCell<T>(int x, int y) where T : Cell?, new()
@@ -126,17 +124,17 @@ public class World(Vector2i size)
 
     public bool InBounds(int x, int y)
     {
-        return 0 <= x && x < size.X && 0 <= y && y < size.Y;
+        return 0 <= x && x < width && 0 <= y && y < height;
     }
 
 
     public float[] ToArray(Brush brush, bool showUI)
     {
-        float[] array = new float[3 * size.X * size.Y];
+        float[] array = new float[3 * width * height];
 
-        for (int y = 0; y < size.Y; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < size.X; x++)
+            for (int x = 0; x < width; x++)
             {
                 (float, float, float) col;
                 if (showUI && brush.OnBorder(x, y))
@@ -155,7 +153,7 @@ public class World(Vector2i size)
                         col = cell.colour;
                     }
                 }
-                int index = y * size.X + x;
+                int index = y * width + x;
 
                 array[index * 3 + 0] = col.Item1;
                 array[index * 3 + 1] = col.Item2;

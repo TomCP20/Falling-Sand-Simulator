@@ -1,20 +1,19 @@
-using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace FallingSandSimulator;
 
-public class Brush(Vector2i screenSize, Vector2i worldSize)
+public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldHeight)
 {
     public int size = 15;
 
     public CellType spawnType = CellType.Sand;
 
-    public Vector2i Pos;
+    public int posX;
 
-    private Vector2i screenSize = screenSize;
-    private Vector2i worldSize = worldSize;
+    public int posY;
 
-    public void Update(KeyboardState KeyboardState, int ScrollDelta, Vector2 MousePosition)
+
+    public void Update(KeyboardState KeyboardState, int ScrollDelta, float mouseX, float mouseY)
     {
         if (KeyboardState.IsKeyPressed(Keys.D0))
         {
@@ -39,20 +38,20 @@ public class Brush(Vector2i screenSize, Vector2i worldSize)
 
         size = Math.Clamp(size + ScrollDelta, 0, 50);
 
-        Pos.X = (int)Math.Floor(MousePosition.X / screenSize.X * worldSize.X);
-        Pos.Y = (int)Math.Ceiling((1 - MousePosition.Y / screenSize.Y) * worldSize.Y) - 1;
+        posX = (int)Math.Floor(mouseX / screenWidth * worldWidth);
+        posY = (int)Math.Ceiling((1 - mouseY / screenHeight) * worldHeight) - 1;
     }
 
     public bool OnBorder(int x, int y)
     {
-        return size == Math.Max(Math.Abs(y - Pos.Y), Math.Abs(x - Pos.X));
+        return size == Math.Max(Math.Abs(y - posY), Math.Abs(x - posX));
     }
 
     public IEnumerable<(int, int)> getBrushCoords()
     {
-        for (int yi = Pos.Y - size; yi <= Pos.Y + size; yi++)
+        for (int yi = posY - size; yi <= posY + size; yi++)
         {
-            for (int xi = Pos.X - size; xi <= Pos.X + size; xi++)
+            for (int xi = posX - size; xi <= posX + size; xi++)
             {
                 yield return (xi, yi);
             }

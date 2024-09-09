@@ -1,5 +1,4 @@
 using OpenTK.Graphics.OpenGL4;
-using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -23,11 +22,11 @@ public class Game : GameWindow
     private bool showUI = true;
 
 
-    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, Vector2i worldSize) : base(gameWindowSettings, nativeWindowSettings)
+    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, int worldWidth, int worldHeight) : base(gameWindowSettings, nativeWindowSettings)
     {
-        world = new(worldSize);
-        brush = new(Size, worldSize);
-        texture = new(worldSize);
+        world = new(worldWidth, worldHeight);
+        brush = new(Size.X, Size.Y, worldWidth, worldHeight);
+        texture = new(worldWidth, worldHeight);
     }
 
     protected override void OnLoad()
@@ -62,7 +61,7 @@ public class Game : GameWindow
     {
         base.OnUpdateFrame(args);
 
-        brush.Update(KeyboardState, (int)MouseState.ScrollDelta.Y, MousePosition);
+        brush.Update(KeyboardState, (int)MouseState.ScrollDelta.Y, MousePosition.X, MousePosition.Y);
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
