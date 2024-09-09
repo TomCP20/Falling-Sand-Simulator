@@ -36,9 +36,9 @@ public class Texture
         GL.BindTexture(TextureTarget.Texture2D, Handle);
     }
 
-    public void update(World world, int mouseX, int mouseY, int brushSize)
+    public void update(World world, int mouseX, int mouseY, int brushSize, bool showUI)
     {
         GL.BindTexture(TextureTarget.Texture2D, Handle);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.ToArray(mouseX, mouseY, brushSize));
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.ToArray(mouseX, mouseY, brushSize, showUI));
     }
 }

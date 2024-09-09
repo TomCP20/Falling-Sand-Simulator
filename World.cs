@@ -126,7 +126,7 @@ public class World
     }
 
 
-    public float[] ToArray(int mouseX, int mouseY, int brushSize)
+    public float[] ToArray(int mouseX, int mouseY, int brushSize, bool showUI)
     {
         float[] array = new float[3 * width * height];
 
@@ -135,7 +135,7 @@ public class World
             for (int x = 0; x < width; x++)
             {
                 Vector3 col;
-                if (((x == mouseX + brushSize || x == mouseX - brushSize) && y <= mouseY + brushSize && y >= mouseY - brushSize) || ((y == mouseY + brushSize || y == mouseY - brushSize) && x <= mouseX + brushSize && x >= mouseX - brushSize))
+                if (showUI && (((x == mouseX + brushSize || x == mouseX - brushSize) && y <= mouseY + brushSize && y >= mouseY - brushSize) || ((y == mouseY + brushSize || y == mouseY - brushSize) && x <= mouseX + brushSize && x >= mouseX - brushSize)))
                 {
                     col = new Vector3(1, 1, 1);
                 }

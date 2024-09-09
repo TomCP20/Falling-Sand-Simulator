@@ -22,6 +22,8 @@ public class Game : GameWindow
 
     private bool playing = true;
 
+    private bool showUI = true;
+
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
@@ -73,6 +75,11 @@ public class Game : GameWindow
         if (KeyboardState.IsKeyPressed(Keys.Space))
         {
             playing = !playing;
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.H))
+        {
+            showUI = !showUI;
         }
 
         if (KeyboardState.IsKeyPressed(Keys.C))
@@ -132,7 +139,7 @@ public class Game : GameWindow
         {
             world.Update();
         }
-        texture.update(world, x, y, brushSize);
+        texture.update(world, x, y, brushSize, showUI);
     }
 
 
