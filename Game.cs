@@ -35,7 +35,7 @@ public class Game : GameWindow
 
         shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag");
 
-        texture = Texture.fromWorld(world);
+        texture = Texture.setupTexture(world);
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -61,6 +61,9 @@ public class Game : GameWindow
         Debug.Assert(texture != null);
         Debug.Assert(world != null);
         base.OnUpdateFrame(args);
+
+        int x = (int)Math.Floor(MousePosition.X / Size.X * world.width);
+        int y = (int)Math.Ceiling((1 - MousePosition.Y / Size.Y) * world.height) - 1;
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -100,8 +103,7 @@ public class Game : GameWindow
 
         if (IsMouseButtonDown(MouseButton.Left))
         {
-            int x = (int)Math.Floor(MousePosition.X / Size.X * world.width);
-            int y = (int)Math.Ceiling((1 - MousePosition.Y / Size.Y) * world.height) - 1;
+            
             switch (spawnType)
             {
                 case CellType.Empty:
@@ -125,7 +127,7 @@ public class Game : GameWindow
         {
             world.Update();
         }
-        texture.update(world);
+        texture.update(world, x, y, brushSize);
     }
 
 

@@ -87,9 +87,9 @@ public class World
 
     public void SpawnMultipleCells<T>(int x, int y, int radius) where T : Cell, new()
     {
-        for (int yi = y-radius; yi <= y+radius; yi++)
+        for (int yi = y - radius; yi <= y + radius; yi++)
         {
-            for (int xi = x-radius; xi <= x+radius; xi++)
+            for (int xi = x - radius; xi <= x + radius; xi++)
             {
                 SpawnCell<T>(xi, yi);
             }
@@ -98,9 +98,9 @@ public class World
 
     public void EraseMultipleCells(int x, int y, int radius)
     {
-        for (int yi = y-radius; yi <= y+radius; yi++)
+        for (int yi = y - radius; yi <= y + radius; yi++)
         {
-            for (int xi = x-radius; xi <= x+radius; xi++)
+            for (int xi = x - radius; xi <= x + radius; xi++)
             {
                 if (InBounds(xi, yi))
                 {
@@ -126,7 +126,7 @@ public class World
     }
 
 
-    public float[] ToArray()
+    public float[] ToArray(int mouseX, int mouseY, int brushSize)
     {
         float[] array = new float[3 * width * height];
 
@@ -134,17 +134,24 @@ public class World
         {
             for (int x = 0; x < width; x++)
             {
-                int index = y * width + x;
-                Cell? cell = state[y, x];
                 Vector3 col;
-                if (cell == null)
+                if (((x == mouseX + brushSize || x == mouseX - brushSize) && y <= mouseY + brushSize && y >= mouseY - brushSize) || ((y == mouseY + brushSize || y == mouseY - brushSize) && x <= mouseX + brushSize && x >= mouseX - brushSize))
                 {
-                    col = new Vector3(0, 0, 0);
+                    col = new Vector3(1, 0, 0);
                 }
                 else
                 {
-                    col = cell.colour;
+                    Cell? cell = state[y, x];
+                    if (cell == null)
+                    {
+                        col = new Vector3(0, 0, 0);
+                    }
+                    else
+                    {
+                        col = cell.colour;
+                    }
                 }
+                int index = y * width + x;
                 for (int k = 0; k < 3; k++)
                 {
                     array[index * 3 + k] = col[k];

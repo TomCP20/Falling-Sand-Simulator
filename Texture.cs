@@ -7,14 +7,14 @@ public class Texture
 {
     public readonly int Handle;
 
-    public static Texture fromWorld(World world)
+    public static Texture setupTexture(World world)
     {
         int handle = GL.GenTexture();
 
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, handle);
 
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.ToArray());
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, nint.Zero);
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
@@ -36,9 +36,9 @@ public class Texture
         GL.BindTexture(TextureTarget.Texture2D, Handle);
     }
 
-    public void update(World world)
+    public void update(World world, int mouseX, int mouseY, int brushSize)
     {
         GL.BindTexture(TextureTarget.Texture2D, Handle);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.ToArray());
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, world.width, world.height, 0, PixelFormat.Rgb, PixelType.Float, world.ToArray(mouseX, mouseY, brushSize));
     }
 }
