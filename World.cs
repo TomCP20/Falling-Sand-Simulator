@@ -97,25 +97,19 @@ public class World(Vector2i size)
 
     public void SpawnMultipleCells<T>(Brush brush) where T : Cell, new()
     {
-        for (int yi = brush.Pos.Y - brush.size; yi <= brush.Pos.Y + brush.size; yi++)
+        foreach ((int x, int y) in brush.getBrushCoords())
         {
-            for (int xi = brush.Pos.X - brush.size; xi <= brush.Pos.X + brush.size; xi++)
-            {
-                SpawnCell<T>(xi, yi);
-            }
+            SpawnCell<T>(x, y);
         }
     }
 
     public void EraseMultipleCells(Brush brush)
     {
-        for (int yi = brush.Pos.Y - brush.size; yi <= brush.Pos.Y + brush.size; yi++)
+        foreach ((int x, int y) in brush.getBrushCoords())
         {
-            for (int xi = brush.Pos.X - brush.size; xi <= brush.Pos.X + brush.size; xi++)
+            if (InBounds(x, y))
             {
-                if (InBounds(xi, yi))
-                {
-                    state[yi, xi] = null;
-                }
+                state[y, x] = null;
             }
         }
     }

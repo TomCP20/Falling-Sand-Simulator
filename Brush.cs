@@ -48,4 +48,15 @@ public class Brush(Vector2i screenSize, Vector2i worldSize)
         return size == Math.Max(Math.Abs(y - Pos.Y), Math.Abs(x - Pos.X));
     }
 
+    public IEnumerable<(int, int)> getBrushCoords()
+    {
+        for (int yi = Pos.Y - size; yi <= Pos.Y + size; yi++)
+        {
+            for (int xi = Pos.X - size; xi <= Pos.X + size; xi++)
+            {
+                yield return (xi, yi);
+            }
+        }
+    }
+
 }
