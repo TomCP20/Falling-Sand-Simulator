@@ -155,7 +155,7 @@ public class World
             for (int x = 0; x < size.X; x++)
             {
                 Vector3 col;
-                if (showUI && brush.onBorder(x, y))
+                if (showUI && brush.OnBorder(x, y))
                 {
                     col = new Vector3(1, 1, 1);
                 }
