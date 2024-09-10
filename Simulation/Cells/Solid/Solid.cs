@@ -1,10 +1,7 @@
 namespace FallingSandSimulator;
 
-public class Stone : Cell
+public abstract class Solid((float, float, float) colour) : Cell(colour)
 {
-
-    public Stone() : base(Colour.GreyNoise(0.5f, 0.1f)) { }
-
     public override void Update(World world, int x, int y)
     {
         world.SetStepped(x, y);

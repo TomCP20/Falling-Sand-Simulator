@@ -8,4 +8,6 @@ public enum CellType
     RainbowSand,
     Stone,
     Smoke,
+    Wood,
+    Fire,
 }

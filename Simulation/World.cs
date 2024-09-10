@@ -70,7 +70,7 @@ public class World(int width, int height)
 
     public void SpawnCell<T>(int x, int y) where T : Cell?, new()
     {
-        if (IsEmpty(x, y))
+        if (InBounds(x, y))
         {
             state[y, x] = new T();
         }

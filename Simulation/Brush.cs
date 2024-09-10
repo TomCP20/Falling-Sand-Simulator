@@ -39,6 +39,14 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
         {
             spawnType = CellType.Smoke;
         }
+        if (KeyboardState.IsKeyPressed(Keys.D6))
+        {
+            spawnType = CellType.Wood;
+        }
+        if (KeyboardState.IsKeyPressed(Keys.D7))
+        {
+            spawnType = CellType.Fire;
+        }
 
         size = Math.Clamp(size + ScrollDelta, 0, 50);
 
@@ -84,6 +92,12 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
             case CellType.Smoke:
                 SpawnCells<Smoke>(world);
                 break;
+            case CellType.Wood:
+                SpawnCells<Wood>(world);
+                break;
+            case CellType.Fire:
+                SpawnCells<Fire>(world);
+                break;
         }
     }
 
@@ -91,7 +105,10 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
     {
         foreach ((int x, int y) in GetBrushCoords())
         {
-            world.SpawnCell<T>(x, y);
+            if (world.IsEmpty(x, y))
+            {
+                world.SpawnCell<T>(x, y);
+            }
         }
     }
 
