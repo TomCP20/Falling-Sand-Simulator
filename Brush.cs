@@ -35,6 +35,10 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
         {
             spawnType = CellType.Stone;
         }
+        if (KeyboardState.IsKeyPressed(Keys.D5))
+        {
+            spawnType = CellType.Smoke;
+        }
 
         size = Math.Clamp(size + ScrollDelta, 0, 50);
 

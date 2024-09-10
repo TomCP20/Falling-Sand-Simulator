@@ -71,6 +71,14 @@ public class World(int width, int height)
         }
     }
 
+    public void DeleteCell(int x, int y)
+    {
+        if (InBounds(x, y))
+        {
+            state[y, x] = null;
+        }
+    }
+
     public void DrawBrush(Brush brush)
     {
         switch (brush.spawnType)
@@ -90,6 +98,9 @@ public class World(int width, int height)
             case CellType.Stone:
                 SpawnMultipleCells<Stone>(brush);
                 break;
+            case CellType.Smoke:
+                SpawnMultipleCells<Smoke>(brush);
+                break;
         }
     }
 
@@ -105,10 +116,7 @@ public class World(int width, int height)
     {
         foreach ((int x, int y) in brush.getBrushCoords())
         {
-            if (InBounds(x, y))
-            {
-                state[y, x] = null;
-            }
+            DeleteCell(x, y);
         }
     }
 

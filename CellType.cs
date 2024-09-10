@@ -7,4 +7,5 @@ public enum CellType
     Sand,
     RainbowSand,
     Stone,
+    Smoke,
 }
