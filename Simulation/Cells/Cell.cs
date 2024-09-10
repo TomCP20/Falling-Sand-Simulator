@@ -8,6 +8,8 @@ public abstract class Cell((float, float, float) colour)
 
     protected static readonly Random rand = new();
 
+    public float burnChance = 0.00f;
+
     public static int RandDirection()
     {
         return new int[] { -1, 1 }[rand.Next(2)];

@@ -24,9 +24,10 @@ public class Fire : Solid
         }
         foreach ((int nx, int ny) in world.GetNeighbors(x, y))
         {
-            if (world.GetCell(nx, ny) is Wood)
+            Cell? neighbor = world.GetCell(nx, ny);
+            if (neighbor != null)
             {
-                if (Random(Wood.burnChance))
+                if (Random(neighbor.burnChance))
                 {
                     world.SpawnCell<Fire>(nx, ny);
                 }
