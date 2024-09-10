@@ -4,19 +4,17 @@ public class Smoke : Cell
 {
     public Smoke() : base((0.51f, 0.53f, 0.51f)) { }
 
-    private static bool Decay(float decayChance)
-    {
-        return rand.NextSingle() <= decayChance;
-    }
+    private static readonly float decayChance = 0.01f;
+
 
     public override void Update(World world, int x, int y)
     {
-        if (Decay(0.01f))
+        if (Random(decayChance))
         {
             world.DeleteCell(x, y);
             return;
         }
-        (int, int)[] deltas = [(0, 1), (-1, 1), (1, 1), (-1, 0), (1, 0)];
+        (int, int)[] deltas = [(-1, 1), (1, 1), (0, 1), (-1, 0), (1, 0)];
         if(AttemptMoves(world, x, y, deltas))
         {
             return;
