@@ -79,47 +79,6 @@ public class World(int width, int height)
         }
     }
 
-    public void DrawBrush(Brush brush)
-    {
-        switch (brush.spawnType)
-        {
-            case CellType.Empty:
-                EraseMultipleCells(brush);
-                break;
-            case CellType.Water:
-                SpawnMultipleCells<Water>(brush);
-                break;
-            case CellType.Sand:
-                SpawnMultipleCells<Sand>(brush);
-                break;
-            case CellType.RainbowSand:
-                SpawnMultipleCells<RainbowSand>(brush);
-                break;
-            case CellType.Stone:
-                SpawnMultipleCells<Stone>(brush);
-                break;
-            case CellType.Smoke:
-                SpawnMultipleCells<Smoke>(brush);
-                break;
-        }
-    }
-
-    public void SpawnMultipleCells<T>(Brush brush) where T : Cell, new()
-    {
-        foreach ((int x, int y) in brush.getBrushCoords())
-        {
-            SpawnCell<T>(x, y);
-        }
-    }
-
-    public void EraseMultipleCells(Brush brush)
-    {
-        foreach ((int x, int y) in brush.getBrushCoords())
-        {
-            DeleteCell(x, y);
-        }
-    }
-
     public bool IsEmpty(int x, int y)
     {
         return InBounds(x, y) && state[y, x] == null;

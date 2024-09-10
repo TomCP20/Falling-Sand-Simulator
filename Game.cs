@@ -85,7 +85,7 @@ public class Game : GameWindow
 
         if (IsMouseButtonDown(MouseButton.Left))
         {
-            world.DrawBrush(brush);
+            brush.Draw(world);
         }
 
         if (playing || KeyboardState.IsKeyPressed(Keys.Right))

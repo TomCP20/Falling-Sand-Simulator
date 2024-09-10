@@ -51,7 +51,7 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
         return size == Math.Max(Math.Abs(y - posY), Math.Abs(x - posX));
     }
 
-    public IEnumerable<(int, int)> getBrushCoords()
+    public IEnumerable<(int, int)> GetBrushCoords()
     {
         for (int yi = posY - size; yi <= posY + size; yi++)
         {
@@ -59,6 +59,47 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
             {
                 yield return (xi, yi);
             }
+        }
+    }
+
+    public void Draw(World world)
+    {
+        switch (spawnType)
+        {
+            case CellType.Empty:
+                EraseCells(world);
+                break;
+            case CellType.Water:
+                SpawnCells<Water>(world);
+                break;
+            case CellType.Sand:
+                SpawnCells<Sand>(world);
+                break;
+            case CellType.RainbowSand:
+                SpawnCells<RainbowSand>(world);
+                break;
+            case CellType.Stone:
+                SpawnCells<Stone>(world);
+                break;
+            case CellType.Smoke:
+                SpawnCells<Smoke>(world);
+                break;
+        }
+    }
+
+    public void SpawnCells<T>(World world) where T : Cell, new()
+    {
+        foreach ((int x, int y) in GetBrushCoords())
+        {
+            world.SpawnCell<T>(x, y);
+        }
+    }
+
+    public void EraseCells(World world)
+    {
+        foreach ((int x, int y) in GetBrushCoords())
+        {
+            world.DeleteCell(x, y);
         }
     }
 
