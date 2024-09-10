@@ -18,8 +18,10 @@ To build this project, use the command `dotnet build` in the project's base fold
 * press <kbd>1</kbd> to select water.
 * press <kbd>2</kbd> to select sand.
 * press <kbd>3</kbd> to select rainbow sand.
-* press <kbd>3</kbd> to select stone.
-* press <kbd>4</kbd> to select smoke.
+* press <kbd>4</kbd> to select stone.
+* press <kbd>5</kbd> to select smoke.
+* press <kbd>6</kbd> to select wood.
+* press <kbd>7</kbd> to select fire.
 * press <kbd>C</kbd> to clear the screen.
 * press <kbd>H</kbd> to show / hide the ui, e.g. the brush outline.
 * press <kbd>Esc</kbd> to exit the program.
