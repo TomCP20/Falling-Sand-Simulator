@@ -26,6 +26,11 @@ public class World(int width, int height)
         }
     }
 
+    public Cell? GetCell(int x, int y)
+    {
+        return state[y, x];
+    }
+
     private int[] ShuffleXs()
     {
         int[] x = Enumerable.Range(0, width).ToArray();
@@ -86,7 +91,7 @@ public class World(int width, int height)
 
     public bool IsDisplaceable(int x, int y)
     {
-        return InBounds(x, y) && (state[y, x] is Water);
+        return InBounds(x, y) && (state[y, x] is Water || state[y, x] is Smoke);
     }
 
     public bool InBounds(int x, int y)

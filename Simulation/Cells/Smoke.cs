@@ -14,8 +14,13 @@ public class Smoke : Cell
             world.DeleteCell(x, y);
             return;
         }
+        int dir = RandDirection();
         (int, int)[] deltas = [(-1, 1), (1, 1), (0, 1), (-1, 0), (1, 0)];
-        if(AttemptMoves(world, x, y, deltas))
+        if(world.AttemptMoves(x, y, deltas, dir))
+        {
+            return;
+        }
+        if(world.AttemptDisplacements(x, y, deltas, dir))
         {
             return;
         }
