@@ -22,7 +22,16 @@ public class Fire : Solid
                 world.SpawnCell<Smoke>(x, y + 1);
             }
         }
-        
+        foreach ((int nx, int ny) in world.GetNeighbors(x, y))
+        {
+            if (world.GetCell(nx, ny) is Wood)
+            {
+                if (Random(Wood.burnChance))
+                {
+                    world.SpawnCell<Fire>(nx, ny);
+                }
+            }
+        }
         base.Update(world, x, y);
     }
 }

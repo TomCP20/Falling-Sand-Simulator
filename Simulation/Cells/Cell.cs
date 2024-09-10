@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace FallingSandSimulator;
 
 public abstract class Cell((float, float, float) colour)
@@ -15,5 +17,6 @@ public abstract class Cell((float, float, float) colour)
     {
         return rand.NextSingle() <= chance;
     }
+    
     public abstract void Update(World world, int x, int y);
 }
