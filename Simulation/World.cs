@@ -91,7 +91,7 @@ public class World(int width, int height)
 
     public bool IsDisplaceable(int x, int y)
     {
-        return InBounds(x, y) && (state[y, x] is Water || state[y, x] is Smoke);
+        return InBounds(x, y) && (state[y, x] is Liquid || state[y, x] is Smoke);
     }
 
     public bool InBounds(int x, int y)
@@ -118,7 +118,7 @@ public class World(int width, int height)
                     Cell? cell = state[y, x];
                     if (cell == null)
                     {
-                        col = (0, 0, 0);
+                        col = (0.09f, 0.09f, 0.09f);
                     }
                     else
                     {

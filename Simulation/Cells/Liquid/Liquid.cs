@@ -1,11 +1,7 @@
 namespace FallingSandSimulator;
 
-public class Water : Cell
+public abstract class Liquid((float, float, float) colour) : Cell(colour)
 {
-
-    public Water() : base((0, 0, 1)) { }
-
-
     public override void Update(World world, int x, int y)
     {
         int dir = RandDirection();
