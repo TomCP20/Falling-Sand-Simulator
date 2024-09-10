@@ -129,4 +129,34 @@ public class World(int width, int height)
         }
         return array;
     }
+
+    public bool AttemptMoves(int x, int y, (int, int)[] deltas, int dir)
+    {
+        foreach ((int dx, int dy) in deltas)
+        {
+            int newx = x + dx * dir;
+            int newy = y + dy;
+            if (IsEmpty(newx, newy))
+            {
+                MoveTo(x, y, newx, newy);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool AttemptDisplacements(int x, int y, (int, int)[] deltas, int dir)
+    {
+        foreach ((int dx, int dy) in deltas)
+        {
+            int newx = x + dx * dir;
+            int newy = y + dy;
+            if (IsDisplaceable(newx, newy))
+            {
+                Swap(x, y, newx, newy);
+                return true;
+            }
+        }
+        return false;
+    }
 }
