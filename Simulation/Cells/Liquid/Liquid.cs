@@ -1,7 +1,12 @@
 namespace FallingSandSimulator;
 
-public abstract class Liquid((float, float, float) colour) : Cell(colour)
+public abstract class Liquid : Cell
 {
+    public Liquid((float, float, float) colour) : base(colour)
+    {
+        displaceable = true;
+    }
+
     public override void Update(World world, int x, int y)
     {
         int dir = RandDirection();

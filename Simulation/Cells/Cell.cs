@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace FallingSandSimulator;
 
 public abstract class Cell((float, float, float) colour)
@@ -7,6 +5,8 @@ public abstract class Cell((float, float, float) colour)
     public readonly (float, float, float) colour = colour;
 
     protected static readonly Random rand = new();
+
+    public bool displaceable = false;
 
     public float burnChance = 0.00f;
 

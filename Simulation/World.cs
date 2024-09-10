@@ -91,7 +91,12 @@ public class World(int width, int height)
 
     public bool IsDisplaceable(int x, int y)
     {
-        return InBounds(x, y) && (state[y, x] is Liquid || state[y, x] is Smoke);
+        if (InBounds(x, y))
+        {
+            Cell? cell = state[y, x];
+            return cell == null || cell.displaceable;
+        }
+        return false;
     }
 
     public bool InBounds(int x, int y)
