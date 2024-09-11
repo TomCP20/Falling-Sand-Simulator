@@ -8,7 +8,9 @@ public abstract class Cell((float, float, float) colour)
 
     public bool displaceable = false;
 
-    public float burnChance = 0.00f;
+    public float burnChance = 0;
+
+    public float corrodeChance = 0.1f;
 
     public static int RandDirection()
     {

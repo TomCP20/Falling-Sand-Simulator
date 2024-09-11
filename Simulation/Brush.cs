@@ -47,6 +47,10 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
         {
             spawnType = CellType.Fire;
         }
+        if (KeyboardState.IsKeyPressed(Keys.D8))
+        {
+            spawnType = CellType.Acid;
+        }
 
         size = Math.Clamp(size + ScrollDelta, 0, 50);
 
@@ -97,6 +101,9 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
                 break;
             case CellType.Fire:
                 SpawnCells<Fire>(world);
+                break;
+            case CellType.Acid:
+                SpawnCells<Acid>(world);
                 break;
         }
     }

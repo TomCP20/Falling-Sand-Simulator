@@ -10,4 +10,5 @@ public enum CellType
     Smoke,
     Wood,
     Fire,
+    Acid,
 }
