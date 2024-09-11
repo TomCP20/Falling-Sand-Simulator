@@ -30,4 +30,21 @@ static class Colour
         float scale = Noise(val, variation);
         return (scale, scale, scale);
     }
+
+    public static (float, float, float) RandomMix((float, float, float) col1, (float, float, float) col2)
+    {
+        return Mix(col1, col2, rand.NextSingle());
+    }
+
+    public static (float, float, float) Mix((float, float, float) col1, (float, float, float) col2, float ratio)
+    {
+        (float r1, float g1, float b1) = col1;
+        (float r2, float g2, float b2) = col2;
+        return (Mix(r1, r2, ratio), Mix(g1, g2, ratio), Mix(b1, b2, ratio));
+    }
+
+    public static float Mix(float val1, float val2, float ratio)
+    {
+        return val1 * ratio + val2 * (1 - ratio);
+    }
 }
