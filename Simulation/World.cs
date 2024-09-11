@@ -14,9 +14,9 @@ public class World(int width, int height)
     public void Update()
     {
         stepped = new bool[height, width];
-        foreach (int x in ShuffleXs())
+        for (int y = 0; y < height; y++)
         {
-            for (int y = 0; y < height; y++)
+            foreach (int x in ShuffleXs())
             {
                 if (!stepped[y, x])
                 {
