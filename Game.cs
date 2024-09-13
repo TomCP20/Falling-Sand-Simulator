@@ -61,7 +61,7 @@ public class Game : GameWindow
     {
         base.OnUpdateFrame(args);
 
-        brush.Update(KeyboardState, (int)MouseState.ScrollDelta.Y, MousePosition.X, MousePosition.Y);
+        brush.Update((int)MouseState.ScrollDelta.Y, MousePosition.X, MousePosition.Y);
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -83,9 +83,16 @@ public class Game : GameWindow
             world.Clear();
         }
 
-        if (IsMouseButtonDown(MouseButton.Left) && brush.inBounds())
+        if (IsMouseButtonDown(MouseButton.Left))
         {
-            brush.Draw(world);
+            if(brush.InBounds())
+            {
+                brush.Draw(world);
+            }
+            else
+            {
+                brush.SetType();
+            }            
         }
 
         if (playing || KeyboardState.IsKeyPressed(Keys.Right))

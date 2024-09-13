@@ -13,45 +13,8 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
     public int posY;
 
 
-    public void Update(KeyboardState KeyboardState, int ScrollDelta, float mouseX, float mouseY)
+    public void Update(int ScrollDelta, float mouseX, float mouseY)
     {
-        if (KeyboardState.IsKeyPressed(Keys.D0))
-        {
-            spawnType = CellType.Empty;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D1))
-        {
-            spawnType = CellType.Water;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D2))
-        {
-            spawnType = CellType.Sand;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D3))
-        {
-            spawnType = CellType.RainbowSand;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D4))
-        {
-            spawnType = CellType.Stone;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D5))
-        {
-            spawnType = CellType.Smoke;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D6))
-        {
-            spawnType = CellType.Wood;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D7))
-        {
-            spawnType = CellType.Fire;
-        }
-        if (KeyboardState.IsKeyPressed(Keys.D8))
-        {
-            spawnType = CellType.Acid;
-        }
-
         size = Math.Clamp(size + ScrollDelta, 0, 50);
 
         posX = (int)Math.Floor(mouseX / screenWidth * worldWidth);
@@ -73,7 +36,6 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
             }
         }
     }
-
     public void Draw(World world)
     {
         switch (spawnType)
@@ -127,9 +89,19 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
         }
     }
 
-    public bool inBounds()
+    public bool InBounds()
     {
         return 0 <= posX && posX < worldWidth && 0 <= posY && posY < worldHeight;
+    }
+
+    public bool OnUI()
+    {
+        return 0 <= posX && posX < worldWidth && worldHeight <= posY && posY < worldHeight + UiHeight;
+    }
+
+    public void SetType()
+    {
+        spawnType = (CellType)(posX/UiHeight);
     }
 
 }

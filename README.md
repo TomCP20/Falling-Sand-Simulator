@@ -12,21 +12,23 @@ To build this project, use the command `dotnet build` in the project's base fold
 
 ## Controls
 
-* press the left mouse button to spawn the selected material in a square around where the user clicked.
-* use the scroll wheel to change the size of the brush.
-* press <kbd>0</kbd> to select erase mode.
-* press <kbd>1</kbd> to select water.
-* press <kbd>2</kbd> to select sand.
-* press <kbd>3</kbd> to select rainbow sand.
-* press <kbd>4</kbd> to select stone.
-* press <kbd>5</kbd> to select smoke.
-* press <kbd>6</kbd> to select wood.
-* press <kbd>7</kbd> to select fire.
-* press <kbd>C</kbd> to clear the screen.
-* press <kbd>H</kbd> to show / hide the ui, e.g. the brush outline.
-* press <kbd>Esc</kbd> to exit the program.
-* press <kbd>Space</kbd> to pause / resume the program.
-* press <kbd>→</kbd> to step the program while paused.
+* Press the left mouse button in the world to spawn the selected material in a square around where the user clicked.
+* Press the left mouse button on the UI Bar to select a material, from left to right they are.
+  * Erase Mode
+  * Water
+  * Sand
+  * Rainbow Sand
+  * Stone
+  * Smoke
+  * Wood
+  * Fire
+  * Acid
+* Use the scroll wheel to change the size of the brush.
+* Press <kbd>C</kbd> to clear the screen.
+* Press <kbd>H</kbd> to show / hide the ui, e.g. the brush outline.
+* Press <kbd>Esc</kbd> to exit the program.
+* Press <kbd>Space</kbd> to pause / resume the program.
+* Press <kbd>→</kbd> to step the program while paused.
 
 ## References
 
