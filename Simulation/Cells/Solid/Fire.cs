@@ -2,7 +2,7 @@ namespace FallingSandSimulator;
 
 public class Fire : Solid
 {
-    public Fire() : base(Colour.RandomMix((1, 0, 0), (1, 0.64f, 0))) { }
+    public Fire() : base(Colour.RandomMix(Colour.Red, Colour.Orange)) { }
 
     private static readonly float decayChance = 0.01f;
 

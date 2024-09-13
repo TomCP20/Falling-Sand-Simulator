@@ -2,7 +2,7 @@ namespace FallingSandSimulator;
 
 public class Smoke : Gas
 {
-    public Smoke() : base((0.51f, 0.53f, 0.51f)) { }
+    public Smoke() : base(Colour.SmokeGrey) { }
 
     private static readonly float decayChance = 0.01f;
 

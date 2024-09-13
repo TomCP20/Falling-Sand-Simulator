@@ -5,7 +5,7 @@ public class Acid : Liquid
 
     public float expireChance = 0.5f;
 
-    public Acid() : base((0, 1, 0))
+    public Acid() : base(Colour.Green)
     {
         corrodeChance = 0;
     }

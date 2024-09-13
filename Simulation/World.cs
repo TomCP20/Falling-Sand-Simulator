@@ -116,14 +116,14 @@ public class World(int width, int height, int UiHeight)
                 (float, float, float) col;
                 if (brush.show && brush.OnBorder(x, y) && brush.InBounds())
                 {
-                    col = (1, 1, 1);
+                    col = Colour.White;
                 }
                 else
                 {
                     Cell? cell = state[y, x];
                     if (cell == null)
                     {
-                        col = (0.09f, 0.09f, 0.09f);
+                        col = Colour.DarkGrey;
                     }
                     else
                     {
@@ -137,7 +137,7 @@ public class World(int width, int height, int UiHeight)
                 array[index * 3 + 2] = col.Item3;
             }
         }
-        (float, float, float)[] UIcols = [(0.09f, 0.09f, 0.09f), (0, 0, 1), (1, 1, 0), (1, 1, 1), (0.5f, 0.5f, 0.5f), (0.51f, 0.53f, 0.51f), (0.54f, 0.27f, 0.07f), (1, 0.32f, 0), (0, 1, 0)];
+        (float, float, float)[] UIcols = [Colour.DarkGrey, Colour.Blue, Colour.Yellow, Colour.White, Colour.Grey, Colour.SmokeGrey, Colour.Brown, Colour.Vermilion, Colour.Green];
         for (int y = height; y < height + UiHeight; y++)
         {
             for (int x = 0; x < width; x++)
@@ -149,11 +149,11 @@ public class World(int width, int height, int UiHeight)
                     {
                         if (x/UiHeight == (int)brush.spawnType)
                         {
-                            col = (1, 1, 1);
+                            col = Colour.White;
                         }
                         else
                         {
-                            col = (0, 0, 0);
+                            col = Colour.Black;
                         }  
                     }
                     else
