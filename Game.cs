@@ -19,8 +19,6 @@ public class Game : GameWindow
 
     private bool playing = true;
 
-    private bool showUI = true;
-
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, int worldWidth, int worldHeight, int UiHeight) : base(gameWindowSettings, nativeWindowSettings)
     {
@@ -75,7 +73,7 @@ public class Game : GameWindow
 
         if (KeyboardState.IsKeyPressed(Keys.H))
         {
-            showUI = !showUI;
+            brush.show = !brush.show;
         }
 
         if (KeyboardState.IsKeyPressed(Keys.C))
@@ -100,7 +98,7 @@ public class Game : GameWindow
             world.Update();
         }
         
-        texture.Update(world.ToArray(brush, showUI));
+        texture.Update(world.ToArray(brush));
     }
 
     protected override void OnUnload()

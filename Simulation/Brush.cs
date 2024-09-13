@@ -12,6 +12,8 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
 
     public int posY;
 
+    public bool show = true;
+
 
     public void Update(int ScrollDelta, float mouseX, float mouseY)
     {

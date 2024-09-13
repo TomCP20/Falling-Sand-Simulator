@@ -105,7 +105,7 @@ public class World(int width, int height, int UiHeight)
     }
 
 
-    public float[] ToArray(Brush brush, bool showUI)
+    public float[] ToArray(Brush brush)
     {
         float[] array = new float[3 * width * (height + UiHeight)];
 
@@ -114,7 +114,7 @@ public class World(int width, int height, int UiHeight)
             for (int x = 0; x < width; x++)
             {
                 (float, float, float) col;
-                if (showUI && brush.OnBorder(x, y) && brush.InBounds())
+                if (brush.show && brush.OnBorder(x, y) && brush.InBounds())
                 {
                     col = (1, 1, 1);
                 }
