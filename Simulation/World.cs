@@ -114,7 +114,7 @@ public class World(int width, int height, int UiHeight)
             for (int x = 0; x < width; x++)
             {
                 (float, float, float) col;
-                if (showUI && brush.OnBorder(x, y))
+                if (showUI && brush.OnBorder(x, y) && brush.inBounds())
                 {
                     col = (1, 1, 1);
                 }
