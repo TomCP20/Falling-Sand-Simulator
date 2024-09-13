@@ -83,7 +83,7 @@ public class Game : GameWindow
             world.Clear();
         }
 
-        if (IsMouseButtonDown(MouseButton.Left))
+        if (IsMouseButtonDown(MouseButton.Left) && brush.inBounds())
         {
             brush.Draw(world);
         }

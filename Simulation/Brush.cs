@@ -127,4 +127,9 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
         }
     }
 
+    public bool inBounds()
+    {
+        return 0 <= posX && posX < worldWidth && 0 <= posY && posY < worldHeight;
+    }
+
 }
