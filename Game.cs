@@ -71,14 +71,14 @@ public class Game : GameWindow
             playing = !playing;
         }
 
-        if (KeyboardState.IsKeyPressed(Keys.H))
-        {
-            brush.show = !brush.show;
-        }
-
         if (KeyboardState.IsKeyPressed(Keys.C))
         {
             world.Clear();
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.H))
+        {
+            brush.show = !brush.show;
         }
 
         if (IsMouseButtonDown(MouseButton.Left))
