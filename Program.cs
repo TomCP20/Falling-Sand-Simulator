@@ -9,7 +9,7 @@ NativeWindowSettings nativeWindowSettings = new()
     WindowState = WindowState.Fullscreen,
 };
 
-using (Game window = new(GameWindowSettings.Default, nativeWindowSettings, 640, 480))
+using (Game window = new(GameWindowSettings.Default, nativeWindowSettings, 640, 480, 10))
 {
     window.UpdateFrequency = 60;
     window.Run();

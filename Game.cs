@@ -22,11 +22,11 @@ public class Game : GameWindow
     private bool showUI = true;
 
 
-    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, int worldWidth, int worldHeight) : base(gameWindowSettings, nativeWindowSettings)
+    public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, int worldWidth, int worldHeight, int UiHeight) : base(gameWindowSettings, nativeWindowSettings)
     {
-        world = new(worldWidth, worldHeight);
-        brush = new(Size.X, Size.Y, worldWidth, worldHeight);
-        texture = new(worldWidth, worldHeight);
+        world = new(worldWidth, worldHeight, UiHeight);
+        brush = new(Size.X, Size.Y, worldWidth, worldHeight, UiHeight);
+        texture = new(worldWidth, worldHeight, UiHeight);
     }
 
     protected override void OnLoad()

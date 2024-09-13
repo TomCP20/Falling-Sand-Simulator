@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace FallingSandSimulator;
 
-public class World(int width, int height)
+public class World(int width, int height, int UiHeight)
 {
     private Cell?[,] state = new Cell[height, width];
 
@@ -107,7 +107,7 @@ public class World(int width, int height)
 
     public float[] ToArray(Brush brush, bool showUI)
     {
-        float[] array = new float[3 * width * height];
+        float[] array = new float[3 * width * (height + UiHeight)];
 
         for (int y = 0; y < height; y++)
         {
@@ -135,6 +135,16 @@ public class World(int width, int height)
                 array[index * 3 + 0] = col.Item1;
                 array[index * 3 + 1] = col.Item2;
                 array[index * 3 + 2] = col.Item3;
+            }
+        }
+        for (int y = height; y < height + UiHeight; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                int index = y * width + x;
+                array[index * 3 + 0] = 1;
+                array[index * 3 + 1] = 0;
+                array[index * 3 + 2] = 0;
             }
         }
         return array;
