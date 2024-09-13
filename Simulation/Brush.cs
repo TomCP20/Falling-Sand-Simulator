@@ -101,7 +101,11 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
 
     public void SetType()
     {
-        spawnType = (CellType)(posX/UiHeight);
+        if (posX/UiHeight < Enum.GetValues(typeof(CellType)).Length)
+        {
+            spawnType = (CellType)(posX/UiHeight);
+        }
+        
     }
 
 }
