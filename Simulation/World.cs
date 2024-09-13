@@ -145,7 +145,21 @@ public class World(int width, int height, int UiHeight)
                 (float, float, float) col;
                 if (x/UiHeight < UIcols.Length)
                 {
-                    col = UIcols[x/UiHeight];
+                    if (x % UiHeight == 0 || x % UiHeight == UiHeight - 1 || y == height || y == height + UiHeight - 1)
+                    {
+                        if (x/UiHeight == (int)brush.spawnType)
+                        {
+                            col = (1, 1, 1);
+                        }
+                        else
+                        {
+                            col = (0, 0, 0);
+                        }  
+                    }
+                    else
+                    {
+                        col = UIcols[x/UiHeight];
+                    }
                 }
                 else
                 {
