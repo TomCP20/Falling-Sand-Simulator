@@ -137,7 +137,7 @@ public class World(int width, int height, int UiHeight)
                 array[index * 3 + 2] = col.Item3;
             }
         }
-        (float, float, float)[] UIcols = [Colour.DarkGrey, Colour.Blue, Colour.Yellow, Colour.White, Colour.Grey, Colour.SmokeGrey, Colour.Brown, Colour.Vermilion, Colour.Green];
+        (float, float, float)[] UIcols = [Colour.DarkGrey, Colour.Blue, Colour.Yellow, Colour.White, Colour.Grey, Colour.SmokeGrey, Colour.Brown, Colour.Vermilion, Colour.Green, Colour.Grey];
         for (int y = height; y < height + UiHeight; y++)
         {
             for (int x = 0; x < width; x++)

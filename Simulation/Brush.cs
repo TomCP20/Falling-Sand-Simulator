@@ -69,6 +69,11 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
             case CellType.Acid:
                 SpawnCells<Acid>(world);
                 break;
+            case CellType.Confetti:
+                SpawnCells<Confetti>(world);
+                break;
+            default:
+                throw new Exception($"Case {spawnType} not found.");
         }
     }
 

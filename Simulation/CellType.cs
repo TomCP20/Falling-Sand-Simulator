@@ -11,4 +11,5 @@ public enum CellType
     Wood,
     Fire,
     Acid,
+    Confetti,
 }

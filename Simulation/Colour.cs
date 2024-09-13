@@ -44,6 +44,11 @@ static class Colour
         return (scale, scale, scale);
     }
 
+    public static (float, float, float) Static()
+    {
+        return Noise(Grey, 0.5f);
+    }
+
     public static (float, float, float) RandomMix((float, float, float) col1, (float, float, float) col2)
     {
         return Mix(col1, col2, rand.NextSingle());
