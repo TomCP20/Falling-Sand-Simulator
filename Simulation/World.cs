@@ -137,14 +137,24 @@ public class World(int width, int height, int UiHeight)
                 array[index * 3 + 2] = col.Item3;
             }
         }
+        (float, float, float)[] UIcols = [(0.09f, 0.09f, 0.09f), (0, 0, 1), (1, 1, 0), (1, 1, 1), (0.5f, 0.5f, 0.5f), (0.51f, 0.53f, 0.51f), (0.54f, 0.27f, 0.07f), (1, 0.32f, 0), (0, 1, 0)];
         for (int y = height; y < height + UiHeight; y++)
         {
             for (int x = 0; x < width; x++)
             {
+                (float, float, float) col;
+                if (x/UiHeight < UIcols.Length)
+                {
+                    col = UIcols[x/UiHeight];
+                }
+                else
+                {
+                    col = (0, 0, 0);
+                }
                 int index = y * width + x;
-                array[index * 3 + 0] = 1;
-                array[index * 3 + 1] = 0;
-                array[index * 3 + 2] = 0;
+                array[index * 3 + 0] = col.Item1;
+                array[index * 3 + 1] = col.Item2;
+                array[index * 3 + 2] = col.Item3;
             }
         }
         return array;
