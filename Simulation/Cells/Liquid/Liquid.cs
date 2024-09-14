@@ -15,6 +15,10 @@ public abstract class Liquid : Cell
         {
             return;
         }
+        if(world.AttemptDisplacements(x, y, deltas, dir))
+        {
+            return;
+        }
         world.SetStepped(x, y);
     }
 }

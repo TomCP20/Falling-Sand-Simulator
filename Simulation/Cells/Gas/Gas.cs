@@ -14,10 +14,6 @@ public abstract class Gas : Cell
         {
             return;
         }
-        if(world.AttemptDisplacements(x, y, deltas, dir))
-        {
-            return;
-        }
         world.SetStepped(x, y);
     }
 }
