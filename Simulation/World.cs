@@ -158,7 +158,7 @@ public class World(int width, int height, int UiHeight)
                     }
                     else
                     {
-                        col = type.GetCol();
+                        col = type.GetCol((x % UiHeight)-1, y-height-1, UiHeight-2);
                     }
                 }
                 else

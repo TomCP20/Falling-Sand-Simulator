@@ -18,36 +18,37 @@ public static class CellTypeExtension
 {
     public static Cell? NewCell(this CellType spawnType)
     {
-        switch (spawnType)
+        return spawnType switch
         {
-            case CellType.Empty:
-                return null;
-            case CellType.Water:
-                return new Water();
-            case CellType.Sand:
-                return new Sand();
-            case CellType.RainbowSand:
-                return new RainbowSand();
-            case CellType.Stone:
-                return new Stone();
-            case CellType.Smoke:
-                return new Smoke();
-            case CellType.Wood:
-                return new Wood();
-            case CellType.Fire:
-                return new Fire();
-            case CellType.Acid:
-                return new Acid();
-            case CellType.Confetti:
-                return new Confetti();
-            default:
-                throw new Exception($"Case {spawnType} not found.");
-        }
+            CellType.Empty => null,
+            CellType.Water => new Water(),
+            CellType.Sand => new Sand(),
+            CellType.RainbowSand => new RainbowSand(),
+            CellType.Stone => new Stone(),
+            CellType.Smoke => new Smoke(),
+            CellType.Wood => new Wood(),
+            CellType.Fire => new Fire(),
+            CellType.Acid => new Acid(),
+            CellType.Confetti => new Confetti(),
+            _ => throw new Exception($"Case {spawnType} not found."),
+        };
     }
 
-    public static (float, float, float) GetCol(this CellType spawnType)
+    public static (float, float, float) GetCol(this CellType spawnType, int x, int y, int size)
     {
-        (float, float, float)[] UIcols = [Colour.DarkGrey, Colour.Blue, Colour.Yellow, Colour.White, Colour.Grey, Colour.SmokeGrey, Colour.Brown, Colour.Vermilion, Colour.Green, Colour.Grey];
-        return UIcols[(int)spawnType];
+        return spawnType switch
+        {
+            CellType.Empty => Colour.DarkGrey,
+            CellType.Water => Colour.Blue,
+            CellType.Sand => Colour.Yellow,
+            CellType.RainbowSand => Colour.HueToRgb(x/(float)size),
+            CellType.Stone => Colour.Grey,
+            CellType.Smoke => Colour.SmokeGrey,
+            CellType.Wood => Colour.Brown,
+            CellType.Fire => Colour.Vermilion,
+            CellType.Acid => Colour.Green,
+            CellType.Confetti => Colour.UIStatic(x, y, size),
+            _ => throw new Exception($"Case {spawnType} not found."),
+        };
     }
 }

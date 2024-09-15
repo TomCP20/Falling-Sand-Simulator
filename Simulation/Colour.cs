@@ -15,7 +15,7 @@ static class Colour
     public static readonly (float, float, float) Green = (0, 1, 0);
     public static readonly (float, float, float) Black = (0, 0, 0);
 
-    private static readonly Random rand = new();
+    private static Random rand = new();
     public static (float, float, float) HueToRgb(float hue)
     {
         float r = Math.Abs(hue * 6.0f - 3.0f);
@@ -47,6 +47,15 @@ static class Colour
     public static (float, float, float) Static()
     {
         return Noise(Grey, 0.5f);
+    }
+
+    public static (float, float, float) UIStatic(int x, int y, int size)
+    {
+        Random old = rand;
+        rand = new(x + y * size);
+        (float, float, float) col = Static();
+        rand = old;
+        return col;
     }
 
     public static (float, float, float) RandomMix((float, float, float) col1, (float, float, float) col2)
