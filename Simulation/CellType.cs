@@ -44,4 +44,10 @@ public static class CellTypeExtension
                 throw new Exception($"Case {spawnType} not found.");
         }
     }
+
+    public static (float, float, float) GetCol(this CellType spawnType)
+    {
+        (float, float, float)[] UIcols = [Colour.DarkGrey, Colour.Blue, Colour.Yellow, Colour.White, Colour.Grey, Colour.SmokeGrey, Colour.Brown, Colour.Vermilion, Colour.Green, Colour.Grey];
+        return UIcols[(int)spawnType];
+    }
 }

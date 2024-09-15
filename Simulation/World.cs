@@ -137,17 +137,17 @@ public class World(int width, int height, int UiHeight)
                 array[index * 3 + 2] = col.Item3;
             }
         }
-        (float, float, float)[] UIcols = [Colour.DarkGrey, Colour.Blue, Colour.Yellow, Colour.White, Colour.Grey, Colour.SmokeGrey, Colour.Brown, Colour.Vermilion, Colour.Green, Colour.Grey];
         for (int y = height; y < height + UiHeight; y++)
         {
             for (int x = 0; x < width; x++)
             {
                 (float, float, float) col;
-                if (x/UiHeight < UIcols.Length)
+                if (Enum.IsDefined(typeof(CellType), x/UiHeight))
                 {
+                    CellType type = (CellType)(x/UiHeight);
                     if (x % UiHeight == 0 || x % UiHeight == UiHeight - 1 || y == height || y == height + UiHeight - 1)
                     {
-                        if (x/UiHeight == (int)brush.spawnType)
+                        if (type == brush.spawnType)
                         {
                             col = Colour.White;
                         }
@@ -158,7 +158,7 @@ public class World(int width, int height, int UiHeight)
                     }
                     else
                     {
-                        col = UIcols[x/UiHeight];
+                        col = type.GetCol();
                     }
                 }
                 else
