@@ -19,7 +19,7 @@ public class Fire : Solid
         {
             if (Random(smokeChance))
             {
-                world.SpawnCell<Smoke>(x, y + 1);
+                world.SpawnCell(x, y + 1, CellType.Smoke);
             }
         }
         foreach ((int nx, int ny) in world.GetNeighbors(x, y))
@@ -29,7 +29,7 @@ public class Fire : Solid
             {
                 if (Random(neighbor.burnChance))
                 {
-                    world.SpawnCell<Fire>(nx, ny);
+                    world.SpawnCell(nx, ny, CellType.Smoke);
                 }
             }
         }

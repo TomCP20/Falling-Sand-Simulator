@@ -68,11 +68,11 @@ public class World(int width, int height, int UiHeight)
         state = state = new Cell[height, width];
     }
 
-    public void SpawnCell<T>(int x, int y) where T : Cell?, new()
+    public void SpawnCell(int x, int y, CellType spawnType)
     {
         if (InBounds(x, y))
         {
-            state[y, x] = new T();
+            state[y, x] = spawnType.NewCell();
         }
     }
 

@@ -21,6 +21,5 @@ public abstract class Cell((float, float, float) colour)
     {
         return rand.NextSingle() <= chance;
     }
-    
     public abstract void Update(World world, int x, int y);
 }

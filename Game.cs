@@ -87,7 +87,7 @@ public class Game : GameWindow
             {
                 brush.Draw(world);
             }
-            else
+            else if (brush.OnUI())
             {
                 brush.SetType();
             }            

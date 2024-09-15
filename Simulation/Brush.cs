@@ -40,59 +40,12 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
     }
     public void Draw(World world)
     {
-        switch (spawnType)
-        {
-            case CellType.Empty:
-                EraseCells(world);
-                break;
-            case CellType.Water:
-                SpawnCells<Water>(world);
-                break;
-            case CellType.Sand:
-                SpawnCells<Sand>(world);
-                break;
-            case CellType.RainbowSand:
-                SpawnCells<RainbowSand>(world);
-                break;
-            case CellType.Stone:
-                SpawnCells<Stone>(world);
-                break;
-            case CellType.Smoke:
-                SpawnCells<Smoke>(world);
-                break;
-            case CellType.Wood:
-                SpawnCells<Wood>(world);
-                break;
-            case CellType.Fire:
-                SpawnCells<Fire>(world);
-                break;
-            case CellType.Acid:
-                SpawnCells<Acid>(world);
-                break;
-            case CellType.Confetti:
-                SpawnCells<Confetti>(world);
-                break;
-            default:
-                throw new Exception($"Case {spawnType} not found.");
-        }
-    }
-
-    public void SpawnCells<T>(World world) where T : Cell, new()
-    {
         foreach ((int x, int y) in GetBrushCoords())
         {
-            if (world.IsEmpty(x, y))
+            if (spawnType == CellType.Empty || world.IsEmpty(x, y))
             {
-                world.SpawnCell<T>(x, y);
+                world.SpawnCell(x, y, spawnType);
             }
-        }
-    }
-
-    public void EraseCells(World world)
-    {
-        foreach ((int x, int y) in GetBrushCoords())
-        {
-            world.DeleteCell(x, y);
         }
     }
 

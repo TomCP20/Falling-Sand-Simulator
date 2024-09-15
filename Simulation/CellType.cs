@@ -13,3 +13,35 @@ public enum CellType
     Acid,
     Confetti,
 }
+
+public static class CellTypeExtension
+{
+    public static Cell? NewCell(this CellType spawnType)
+    {
+        switch (spawnType)
+        {
+            case CellType.Empty:
+                return null;
+            case CellType.Water:
+                return new Water();
+            case CellType.Sand:
+                return new Sand();
+            case CellType.RainbowSand:
+                return new RainbowSand();
+            case CellType.Stone:
+                return new Stone();
+            case CellType.Smoke:
+                return new Smoke();
+            case CellType.Wood:
+                return new Wood();
+            case CellType.Fire:
+                return new Fire();
+            case CellType.Acid:
+                return new Acid();
+            case CellType.Confetti:
+                return new Confetti();
+            default:
+                throw new Exception($"Case {spawnType} not found.");
+        }
+    }
+}
