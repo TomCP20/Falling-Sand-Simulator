@@ -29,7 +29,7 @@ public class Fire : Solid
             {
                 if (Random(neighbor.burnChance))
                 {
-                    world.SpawnCell(nx, ny, CellType.Smoke);
+                    world.SpawnCell(nx, ny, CellType.Fire);
                 }
             }
         }
