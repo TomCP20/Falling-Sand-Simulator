@@ -12,6 +12,7 @@ public enum CellType
     Fire,
     Acid,
     Confetti,
+    Titanium,
 }
 
 public static class CellTypeExtension
@@ -30,6 +31,7 @@ public static class CellTypeExtension
             CellType.Fire => new Fire(),
             CellType.Acid => new Acid(),
             CellType.Confetti => new Confetti(),
+            CellType.Titanium => new Titanium(),
             _ => throw new Exception($"Case {spawnType} not found."),
         };
     }
@@ -48,6 +50,7 @@ public static class CellTypeExtension
             CellType.Fire => Colour.Vermilion,
             CellType.Acid => Colour.Green,
             CellType.Confetti => Colour.UIStatic(x, y, size),
+            CellType.Titanium => Colour.White,
             _ => throw new Exception($"Case {spawnType} not found."),
         };
     }
