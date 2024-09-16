@@ -28,7 +28,7 @@ public class Fire : Solid
             {
                 if (Random(neighbor.burnChance))
                 {
-                    world.SpawnCell(neighbor.x, neighbor.y, CellType.Fire);
+                    neighbor.Burn(world);
                 }
             }
         }

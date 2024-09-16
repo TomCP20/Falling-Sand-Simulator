@@ -71,5 +71,10 @@ public abstract class Cell((float, float, float) colour, int x, int y)
             }
         }
     }
+
+    public void Burn(World world)
+    {
+        world.SpawnCell(x, y, CellType.Fire);
+    }
     public abstract void Update(World world);
 }
