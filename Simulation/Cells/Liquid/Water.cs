@@ -2,5 +2,5 @@ namespace FallingSandSimulator;
 
 public class Water : Liquid
 {
-    public Water() : base(Colour.Blue) { }
+    public Water(int x, int y) : base(Colour.Blue, x, y) { }
 }

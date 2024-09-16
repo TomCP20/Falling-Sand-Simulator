@@ -2,18 +2,18 @@ namespace FallingSandSimulator;
 
 public class Smoke : Gas
 {
-    public Smoke() : base(Colour.SmokeGrey) { }
+    public Smoke(int x, int y) : base(Colour.SmokeGrey, x, y) { }
 
     private static readonly float decayChance = 0.01f;
 
-    public override void Update(World world, int x, int y)
+    public override void Update(World world)
     {
         if (Random(decayChance))
         {
             world.DeleteCell(x, y);
             return;
         }
-        base.Update(world, x, y);
+        base.Update(world);
     }
     
 }

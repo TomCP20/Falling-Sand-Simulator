@@ -17,21 +17,21 @@ public enum CellType
 
 public static class CellTypeExtension
 {
-    public static Cell? NewCell(this CellType spawnType)
+    public static Cell? NewCell(this CellType spawnType, int x, int y)
     {
         return spawnType switch
         {
             CellType.Empty => null,
-            CellType.Water => new Water(),
-            CellType.Sand => new Sand(),
-            CellType.RainbowSand => new RainbowSand(),
-            CellType.Brick => new Brick(),
-            CellType.Smoke => new Smoke(),
-            CellType.Wood => new Wood(),
-            CellType.Fire => new Fire(),
-            CellType.Acid => new Acid(),
-            CellType.Confetti => new Confetti(),
-            CellType.Titanium => new Titanium(),
+            CellType.Water => new Water(x, y),
+            CellType.Sand => new Sand(x, y),
+            CellType.RainbowSand => new RainbowSand(x, y),
+            CellType.Brick => new Brick(x, y),
+            CellType.Smoke => new Smoke(x, y),
+            CellType.Wood => new Wood(x, y),
+            CellType.Fire => new Fire(x, y),
+            CellType.Acid => new Acid(x, y),
+            CellType.Confetti => new Confetti(x, y),
+            CellType.Titanium => new Titanium(x, y),
             _ => throw new Exception($"Case {spawnType} not found."),
         };
     }

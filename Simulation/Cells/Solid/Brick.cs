@@ -2,12 +2,12 @@ namespace FallingSandSimulator;
 
 public class Brick : Solid
 {
-    public Brick() : base(Colour.Red) { }
+    public Brick(int x, int y) : base(Colour.Red, x, y) { }
 
-    public override void Update(World world, int x, int y)
+    public override void Update(World world)
     {
         colour = Colour.BrickPattern(x, y);
 
-        base.Update(world, x, y);
+        base.Update(world);
     }
 }

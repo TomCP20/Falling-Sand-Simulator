@@ -2,7 +2,7 @@ namespace FallingSandSimulator;
 
 public class Titanium : Solid
 {
-    public Titanium() : base(Colour.White)
+    public Titanium(int x, int y) : base(Colour.White, x, y)
     {
         corrodeChance = 0;
     }

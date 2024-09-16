@@ -2,12 +2,12 @@ namespace FallingSandSimulator;
 
 public abstract class Liquid : Cell
 {
-    public Liquid((float, float, float) colour) : base(colour)
+    public Liquid((float, float, float) colour, int x, int y) : base(colour, x, y)
     {
         displaceable = true;
     }
 
-    public override void Update(World world, int x, int y)
+    public override void Update(World world)
     {
         int dir = RandDirection();
         (int, int)[] deltas = [(0, -1), (-1, -1), (1, -1), (-1, 0), (1, 0)];

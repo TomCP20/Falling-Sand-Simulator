@@ -5,12 +5,12 @@ public class Acid : Liquid
 
     public float expireChance = 0.5f;
 
-    public Acid() : base(Colour.Green)
+    public Acid(int x, int y) : base(Colour.Green, x, y)
     {
         corrodeChance = 0;
     }
 
-    public override void Update(World world, int x, int y)
+    public override void Update(World world)
     {
         foreach ((int nx, int ny) in world.GetNeighbors(x, y))
         {
@@ -28,6 +28,6 @@ public class Acid : Liquid
                 }
             }
         }
-        base.Update(world, x, y);
+        base.Update(world);
     }
 }

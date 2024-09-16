@@ -2,13 +2,13 @@ namespace FallingSandSimulator;
 
 public class Fire : Solid
 {
-    public Fire() : base(Colour.RandomMix(Colour.Red, Colour.Orange)) { }
+    public Fire(int x, int y) : base(Colour.RandomMix(Colour.Red, Colour.Orange), x, y) { }
 
     private static readonly float decayChance = 0.01f;
 
     private static readonly float smokeChance = 0.1f;
 
-    public override void Update(World world, int x, int y)
+    public override void Update(World world)
     {
         if (Random(decayChance))
         {
@@ -33,6 +33,6 @@ public class Fire : Solid
                 }
             }
         }
-        base.Update(world, x, y);
+        base.Update(world);
     }
 }

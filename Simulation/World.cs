@@ -20,7 +20,7 @@ public class World(int width, int height, int UiHeight)
             {
                 if (!stepped[y, x])
                 {
-                    state[y, x]?.Update(this, x, y);
+                    state[y, x]?.Update(this);
                 }
             }
         }
@@ -45,16 +45,29 @@ public class World(int width, int height, int UiHeight)
 
     public void Swap(int x1, int y1, int x2, int y2)
     {
-        (state[y2, x2], state[y1, x1]) = (state[y1, x1], state[y2, x2]);
+        Cell? a = state[y1, x1];
+        Cell? b = state[y2, x2];
+        Debug.Assert(a != null);
+        Debug.Assert(b != null);
+        a.x = x2;
+        a.y = y2;
+        b.x = x1;
+        b.y = y1;
+        (state[y2, x2], state[y1, x1]) = (a, b);
         SetStepped(x1, y1);
         SetStepped(x2, y2);
     }
 
     public void MoveTo(int x1, int y1, int x2, int y2)
     {
-        Debug.Assert(state[y2, x2] == null);
-        state[y2, x2] = state[y1, x1];
+        Cell? a = state[y1, x1];
+        Cell? b = state[y2, x2];
+        Debug.Assert(a != null);
+        Debug.Assert(b == null);
+        state[y2, x2] = a;
         state[y1, x1] = null;
+        a.x = x2;
+        a.y = y2;
         SetStepped(x2, y2);
     }
 
@@ -72,7 +85,7 @@ public class World(int width, int height, int UiHeight)
     {
         if (InBounds(x, y))
         {
-            state[y, x] = spawnType.NewCell();
+            state[y, x] = spawnType.NewCell(x, y);
         }
     }
 

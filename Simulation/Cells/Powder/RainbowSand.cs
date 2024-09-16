@@ -1,6 +1,6 @@
 namespace FallingSandSimulator;
 
-public class RainbowSand : Powder
+public class RainbowSand(int x, int y) : Powder(GetColour(), x, y)
 {
     static float hue = 0;
 
@@ -11,7 +11,4 @@ public class RainbowSand : Powder
         hue += 1f/3600f;
         return col;
     }
-
-    public RainbowSand() : base(GetColour()) { }
-
 }

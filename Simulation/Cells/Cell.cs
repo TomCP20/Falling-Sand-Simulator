@@ -1,8 +1,12 @@
 namespace FallingSandSimulator;
 
-public abstract class Cell((float, float, float) colour)
+public abstract class Cell((float, float, float) colour, int x, int y)
 {
     public (float, float, float) colour = colour;
+
+    public int x = x;
+
+    public int y = y;
 
     protected static readonly Random rand = new();
 
@@ -11,6 +15,8 @@ public abstract class Cell((float, float, float) colour)
     public float burnChance = 0;
 
     public float corrodeChance = 0.1f;
+
+
 
     public static int RandDirection()
     {
@@ -21,5 +27,5 @@ public abstract class Cell((float, float, float) colour)
     {
         return rand.NextSingle() <= chance;
     }
-    public abstract void Update(World world, int x, int y);
+    public abstract void Update(World world);
 }
