@@ -1,6 +1,6 @@
 namespace FallingSandSimulator;
 
-public abstract class Falling((float, float, float) colour) : Cell(colour)
+public abstract class Powder((float, float, float) colour) : Cell(colour)
 {
     protected (int, int)[] deltas1 = [(0, -1), (-1, -1), (1, -1)];
     protected (int, int)[] deltas2 = [(-1, -1), (1, -1), (0, -1)];

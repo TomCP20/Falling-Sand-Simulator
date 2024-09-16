@@ -1,6 +1,6 @@
 namespace FallingSandSimulator;
 
-public class RainbowSand : Falling
+public class RainbowSand : Powder
 {
     static float hue = 0;
 

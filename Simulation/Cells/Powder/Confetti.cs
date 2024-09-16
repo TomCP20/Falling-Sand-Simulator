@@ -1,6 +1,6 @@
 namespace FallingSandSimulator;
 
-public class Confetti: Falling
+public class Confetti: Powder
 {
     public Confetti() : base(Colour.Static())
     {
