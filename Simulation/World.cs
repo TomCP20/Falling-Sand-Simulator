@@ -43,32 +43,27 @@ public class World(int width, int height, int UiHeight)
         return x;
     }
 
-    public void Swap(int x1, int y1, int x2, int y2)
+    public void Swap(Cell? cell1, Cell? cell2)
     {
-        Cell? a = state[y1, x1];
-        Cell? b = state[y2, x2];
-        Debug.Assert(a != null);
-        Debug.Assert(b != null);
-        a.x = x2;
-        a.y = y2;
-        b.x = x1;
-        b.y = y1;
-        (state[y2, x2], state[y1, x1]) = (a, b);
-        SetStepped(x1, y1);
-        SetStepped(x2, y2);
+        Debug.Assert(cell1 != null);
+        Debug.Assert(cell2 != null);
+        (state[cell2.y, cell2.x], state[cell1.y, cell1.x]) = (cell1, cell2);
+        (cell1.x, cell2.x) = (cell2.x, cell1.x);
+        (cell1.y, cell2.y) = (cell2.y, cell1.y);
+        SetStepped(cell1.x, cell1.y);
+        SetStepped(cell2.x, cell2.y);
     }
 
-    public void MoveTo(int x1, int y1, int x2, int y2)
+    public void MoveTo(Cell? cell, int x, int y)
     {
-        Cell? a = state[y1, x1];
-        Cell? b = state[y2, x2];
-        Debug.Assert(a != null);
+        Cell? b = state[y, x];
+        Debug.Assert(cell != null);
         Debug.Assert(b == null);
-        state[y2, x2] = a;
-        state[y1, x1] = null;
-        a.x = x2;
-        a.y = y2;
-        SetStepped(x2, y2);
+        state[y, x] = cell;
+        state[cell.y, cell.x] = null;
+        cell.x = x;
+        cell.y = y;
+        SetStepped(x, y);
     }
 
     public void SetStepped(int x, int y)
@@ -195,7 +190,7 @@ public class World(int width, int height, int UiHeight)
             int newy = y + dy;
             if (IsEmpty(newx, newy))
             {
-                MoveTo(x, y, newx, newy);
+                MoveTo(state[y, x], newx, newy);
                 return true;
             }
         }
@@ -210,7 +205,7 @@ public class World(int width, int height, int UiHeight)
             int newy = y + dy;
             if (IsDisplaceable(newx, newy))
             {
-                Swap(x, y, newx, newy);
+                Swap(state[y, x], state[newy, newx]);
                 return true;
             }
         }
