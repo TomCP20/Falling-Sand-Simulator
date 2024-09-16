@@ -74,4 +74,25 @@ static class Colour
     {
         return val1 * ratio + val2 * (1 - ratio);
     }
+
+    public static (float, float, float) BrickPattern((float, float, float) col1, (float, float, float) col2, int width, int height, int x, int y)
+    {
+        if (y % height == 0 || (x % width == 0 && y / height % 2 == 0) || (x % width == width / 2 && y / height % 2 == 1))
+        {
+            return col2;
+        }
+        {
+            return col1;
+        }
+    }
+
+    public static (float, float, float) BrickPattern(int x, int y)
+    {
+        return BrickPattern(Red, White, 10, 5, x, y);
+    }
+
+    public static (float, float, float) UIBrickPattern(int x, int y)
+    {
+        return BrickPattern(Red, White, 3, 2, x, y);
+    }
 }

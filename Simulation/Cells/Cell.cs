@@ -2,7 +2,7 @@ namespace FallingSandSimulator;
 
 public abstract class Cell((float, float, float) colour)
 {
-    public readonly (float, float, float) colour = colour;
+    public (float, float, float) colour = colour;
 
     protected static readonly Random rand = new();
 
