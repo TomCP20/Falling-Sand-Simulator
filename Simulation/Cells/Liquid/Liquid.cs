@@ -11,14 +11,14 @@ public abstract class Liquid : Cell
     {
         int dir = RandDirection();
         (int, int)[] deltas = [(0, -1), (-1, -1), (1, -1), (-1, 0), (1, 0)];
-        if(world.AttemptMoves(x, y, deltas, dir))
+        if(AttemptMoves(world, deltas, dir))
         {
             return;
         }
-        if(world.AttemptDisplacements(x, y, deltas, dir))
+        if(AttemptDisplacements(world, deltas, dir))
         {
             return;
         }
-        world.SetStepped(x, y);
+        world.SetStepped(this);
     }
 }

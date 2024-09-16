@@ -27,5 +27,49 @@ public abstract class Cell((float, float, float) colour, int x, int y)
     {
         return rand.NextSingle() <= chance;
     }
+
+    public bool AttemptMoves(World world, (int, int)[] deltas, int dir)
+    {
+        foreach ((int dx, int dy) in deltas)
+        {
+            int newx = x + dx * dir;
+            int newy = y + dy;
+            if (world.IsEmpty(newx, newy))
+            {
+                world.MoveTo(this, newx, newy);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool AttemptDisplacements(World world, (int, int)[] deltas, int dir)
+    {
+        foreach ((int dx, int dy) in deltas)
+        {
+            int newx = x + dx * dir;
+            int newy = y + dy;
+            if (world.IsDisplaceable(newx, newy))
+            {
+                world.Swap(this, world.GetCell(newx, newy));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public IEnumerable<Cell?> GetNeighbors(World world)
+    {
+        (int, int)[] deltas = [(0, -1), (-1, 0), (1, 0), (0, 1)];
+        foreach ((int dx, int dy) in deltas)
+        {
+            int newx = x + dx;
+            int newy = y + dy;
+            if (world.InBounds(newx, newy))
+            {
+                yield return world.GetCell(newx, newy);
+            }
+        }
+    }
     public abstract void Update(World world);
 }

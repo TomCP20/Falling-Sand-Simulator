@@ -10,7 +10,7 @@ public class Smoke : Gas
     {
         if (Random(decayChance))
         {
-            world.DeleteCell(x, y);
+            world.DeleteCell(this);
             return;
         }
         base.Update(world);

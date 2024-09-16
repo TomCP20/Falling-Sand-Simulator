@@ -12,17 +12,16 @@ public class Acid : Liquid
 
     public override void Update(World world)
     {
-        foreach ((int nx, int ny) in world.GetNeighbors(x, y))
+        foreach (Cell? neighbor in GetNeighbors(world))
         {
-            Cell? neighbor = world.GetCell(nx, ny);
             if (neighbor != null)
             {
                 if (Random(neighbor.corrodeChance))
                 {
-                    world.DeleteCell(nx, ny);
+                    world.DeleteCell(neighbor);
                     if (Random(expireChance))
                     {
-                        world.DeleteCell(x, y);
+                        world.DeleteCell(this);
                         return;
                     }
                 }

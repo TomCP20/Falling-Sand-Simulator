@@ -50,8 +50,8 @@ public class World(int width, int height, int UiHeight)
         (state[cell2.y, cell2.x], state[cell1.y, cell1.x]) = (cell1, cell2);
         (cell1.x, cell2.x) = (cell2.x, cell1.x);
         (cell1.y, cell2.y) = (cell2.y, cell1.y);
-        SetStepped(cell1.x, cell1.y);
-        SetStepped(cell2.x, cell2.y);
+        SetStepped(cell1);
+        SetStepped(cell2);
     }
 
     public void MoveTo(Cell? cell, int x, int y)
@@ -63,17 +63,17 @@ public class World(int width, int height, int UiHeight)
         state[cell.y, cell.x] = null;
         cell.x = x;
         cell.y = y;
-        SetStepped(x, y);
+        SetStepped(cell);
     }
 
-    public void SetStepped(int x, int y)
+    public void SetStepped(Cell cell)
     {
-        stepped[y, x] = true;
+        stepped[cell.y, cell.x] = true;
     }
 
     public void Clear()
     {
-        state = state = new Cell[height, width];
+        state = new Cell[height, width];
     }
 
     public void SpawnCell(int x, int y, CellType spawnType)
@@ -84,12 +84,9 @@ public class World(int width, int height, int UiHeight)
         }
     }
 
-    public void DeleteCell(int x, int y)
+    public void DeleteCell(Cell cell)
     {
-        if (InBounds(x, y))
-        {
-            state[y, x] = null;
-        }
+        state[cell.y, cell.x] = null;
     }
 
     public bool IsEmpty(int x, int y)
@@ -180,47 +177,5 @@ public class World(int width, int height, int UiHeight)
             }
         }
         return array;
-    }
-
-    public bool AttemptMoves(int x, int y, (int, int)[] deltas, int dir)
-    {
-        foreach ((int dx, int dy) in deltas)
-        {
-            int newx = x + dx * dir;
-            int newy = y + dy;
-            if (IsEmpty(newx, newy))
-            {
-                MoveTo(state[y, x], newx, newy);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public bool AttemptDisplacements(int x, int y, (int, int)[] deltas, int dir)
-    {
-        foreach ((int dx, int dy) in deltas)
-        {
-            int newx = x + dx * dir;
-            int newy = y + dy;
-            if (IsDisplaceable(newx, newy))
-            {
-                Swap(state[y, x], state[newy, newx]);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public IEnumerable<(int, int)> GetNeighbors(int x, int y)
-    {
-        (int, int)[] deltas = [(0, -1), (-1, 0), (1, 0), (0, 1)];
-        foreach ((int dx, int dy) in deltas)
-        {
-            if (InBounds(x + dx, y + dy))
-            {
-                yield return (x + dx, y + dy);
-            }
-        }
     }
 }

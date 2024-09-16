@@ -12,24 +12,23 @@ public class Fire : Solid
     {
         if (Random(decayChance))
         {
-            world.DeleteCell(x, y);
+            world.DeleteCell(this);
             return;
         }
-        if (world.InBounds(x, y + 1) && world.GetCell(x, y + 1) == null)
+        if (world.IsEmpty(x, y + 1))
         {
             if (Random(smokeChance))
             {
                 world.SpawnCell(x, y + 1, CellType.Smoke);
             }
         }
-        foreach ((int nx, int ny) in world.GetNeighbors(x, y))
+        foreach (Cell? neighbor in GetNeighbors(world))
         {
-            Cell? neighbor = world.GetCell(nx, ny);
             if (neighbor != null)
             {
                 if (Random(neighbor.burnChance))
                 {
-                    world.SpawnCell(nx, ny, CellType.Fire);
+                    world.SpawnCell(neighbor.x, neighbor.y, CellType.Fire);
                 }
             }
         }

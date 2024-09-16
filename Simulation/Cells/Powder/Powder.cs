@@ -7,14 +7,14 @@ public abstract class Powder((float, float, float) colour, int x, int y) : Cell(
     public override void Update(World world)
     {
         int dir = RandDirection();
-        if(world.AttemptMoves(x, y, deltas1, dir))
+        if(AttemptMoves(world, deltas1, dir))
         {
             return;
         }
-        if(world.AttemptDisplacements(x, y, deltas2, dir))
+        if(AttemptDisplacements(world, deltas2, dir))
         {
             return;
         }
-        world.SetStepped(x, y);
+        world.SetStepped(this);
     }
 }

@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace FallingSandSimulator;
 
 public abstract class Gas : Cell
@@ -12,10 +10,10 @@ public abstract class Gas : Cell
     {
         int dir = RandDirection();
         (int, int)[] deltas = [(-1, 1), (1, 1), (0, 1), (-1, 0), (1, 0)];
-        if(world.AttemptMoves(x, y, deltas, dir))
+        if(AttemptMoves(world, deltas, dir))
         {
             return;
         }
-        world.SetStepped(x, y);
+        world.SetStepped(this);
     }
 }
