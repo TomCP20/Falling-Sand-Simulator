@@ -206,7 +206,7 @@ public class World(int width, int height, int UiHeight)
 
     public IEnumerable<(int, int)> GetNeighbors(int x, int y)
     {
-        (int, int)[] deltas = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)];
+        (int, int)[] deltas = [(0, -1), (-1, 0), (1, 0), (0, 1)];
         foreach ((int dx, int dy) in deltas)
         {
             if (InBounds(x + dx, y + dy))
