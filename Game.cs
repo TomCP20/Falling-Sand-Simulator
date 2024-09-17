@@ -81,21 +81,19 @@ public class Game : GameWindow
             brush.show = !brush.show;
         }
 
-        if (IsMouseButtonDown(MouseButton.Left))
-        {
-            if(brush.InBounds())
-            {
-                brush.Draw(world);
-            }
-            else if (brush.OnUI())
-            {
-                brush.SetType();
-            }            
-        }
-
         if (playing || KeyboardState.IsKeyPressed(Keys.Right))
         {
             world.Update();
+        }
+
+        if (IsMouseButtonDown(MouseButton.Left) && brush.InBounds())
+        {
+            brush.Draw(world);            
+        }
+
+        if (IsMouseButtonReleased(MouseButton.Left) && brush.OnUI())
+        {
+            brush.SetType();
         }
         
         texture.Update(world.ToArray(brush));
