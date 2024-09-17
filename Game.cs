@@ -19,17 +19,9 @@ public class Game : GameWindow
 
     private bool playing = true;
 
-    private readonly int worldWidth;
-    private readonly int worldHeight;
-    private readonly int UiHeight;
-
-
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, int worldWidth, int worldHeight, int UiHeight) : base(gameWindowSettings, nativeWindowSettings)
     {
-        this.worldWidth = worldWidth;
-        this.worldHeight = worldHeight;
-        this.UiHeight = UiHeight;
-        world = new(worldWidth, worldHeight, UiHeight);
+        world = new(worldWidth, worldHeight);
         brush = new(worldWidth, worldHeight, UiHeight);
         texture = new(worldWidth, worldHeight, UiHeight);
     }
@@ -67,8 +59,8 @@ public class Game : GameWindow
         base.OnUpdateFrame(args);
 
         brush.Update((int)MouseState.ScrollDelta.Y);
-        brush.posX = (int)Math.Floor(MousePosition.X / FramebufferSize.X * worldWidth);
-        brush.posY = (int)Math.Ceiling((1 - MousePosition.Y / FramebufferSize.Y) * (worldHeight + UiHeight)) - 1;
+        brush.posX = (int)Math.Floor(MousePosition.X / FramebufferSize.X * texture.Width);
+        brush.posY = (int)Math.Ceiling((1 - MousePosition.Y / FramebufferSize.Y) * texture.Height) - 1;
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -105,7 +97,7 @@ public class Game : GameWindow
             brush.SetType();
         }
 
-        texture.Update(world.ToArray(brush));
+        texture.Update(world, brush);
     }
 
     protected override void OnFramebufferResize(FramebufferResizeEventArgs args)

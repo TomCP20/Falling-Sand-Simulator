@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace FallingSandSimulator;
 
-public class World(int width, int height, int UiHeight)
+public class World(int width, int height)
 {
     private Cell?[,] state = new Cell[height, width];
 
@@ -97,75 +97,5 @@ public class World(int width, int height, int UiHeight)
     public bool InBounds(int x, int y)
     {
         return 0 <= x && x < width && 0 <= y && y < height;
-    }
-
-
-    public float[] ToArray(Brush brush)
-    {
-        float[] array = new float[3 * width * (height + UiHeight)];
-
-        for (int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                (float, float, float) col;
-                if (brush.show && brush.OnBorder(x, y) && brush.InBounds())
-                {
-                    col = Colour.White;
-                }
-                else
-                {
-                    Cell? cell = state[y, x];
-                    if (cell == null)
-                    {
-                        col = Colour.DarkGrey;
-                    }
-                    else
-                    {
-                        col = cell.colour;
-                    }
-                }
-                int index = y * width + x;
-
-                array[index * 3 + 0] = col.Item1;
-                array[index * 3 + 1] = col.Item2;
-                array[index * 3 + 2] = col.Item3;
-            }
-        }
-        for (int y = height; y < height + UiHeight; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                (float, float, float) col;
-                if (Enum.IsDefined(typeof(CellType), x/UiHeight))
-                {
-                    CellType type = (CellType)(x/UiHeight);
-                    if (x % UiHeight == 0 || x % UiHeight == UiHeight - 1 || y == height || y == height + UiHeight - 1)
-                    {
-                        if (type == brush.spawnType)
-                        {
-                            col = Colour.White;
-                        }
-                        else
-                        {
-                            col = Colour.Black;
-                        }  
-                    }
-                    else
-                    {
-                        col = type.GetCol((x % UiHeight)-1, y-height-1, UiHeight-2);
-                    }
-                }
-                else
-                {
-                    col = (0, 0, 0);
-                }
-                int index = y * width + x;
-                array[index * 3 + 0] = col.Item1;
-                array[index * 3 + 1] = col.Item2;
-                array[index * 3 + 2] = col.Item3;
-            }
-        }
-        return array;
     }
 }
