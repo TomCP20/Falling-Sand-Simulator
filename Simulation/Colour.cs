@@ -6,12 +6,10 @@ static class Colour
     public static readonly (float, float, float) Blue = (0, 0, 1);
     public static readonly (float, float, float) Yellow = (1, 1, 0);
     public static readonly (float, float, float) White = (1, 1, 1);
-    public static readonly (float, float, float) Grey = (0.5f, 0.5f, 0.5f);
     public static readonly (float, float, float) SmokeGrey = (0.51f, 0.53f, 0.51f);
     public static readonly (float, float, float) Brown = (0.54f, 0.27f, 0.07f);
     public static readonly (float, float, float) Red = (1, 0, 0);
     public static readonly (float, float, float) Orange = (1, 0.64f, 0);
-    public static readonly (float, float, float) Vermilion = (1, 0.32f, 0);
     public static readonly (float, float, float) Green = (0, 1, 0);
     public static readonly (float, float, float) Black = (0, 0, 0);
 
@@ -46,7 +44,7 @@ static class Colour
 
     public static (float, float, float) Static()
     {
-        return Noise(Grey, 0.5f);
+        return Noise((0.5f, 0.5f, 0.5f), 0.5f);
     }
 
     public static (float, float, float) RandomMix((float, float, float) col1, (float, float, float) col2)
