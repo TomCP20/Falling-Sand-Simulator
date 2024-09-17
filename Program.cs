@@ -6,7 +6,6 @@ NativeWindowSettings nativeWindowSettings = new()
 {
     Title = "Falling Sand Simulator",
     Flags = ContextFlags.ForwardCompatible,
-    WindowState = WindowState.Fullscreen,
 };
 
 using (Game window = new(GameWindowSettings.Default, nativeWindowSettings, 640, 480, 10))

@@ -2,7 +2,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace FallingSandSimulator;
 
-public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldHeight, int UiHeight)
+public class Brush(int worldWidth, int worldHeight, int UiHeight)
 {
     public int size = 15;
 
@@ -15,12 +15,9 @@ public class Brush(int screenWidth, int screenHeight, int worldWidth, int worldH
     public bool show = true;
 
 
-    public void Update(int ScrollDelta, float mouseX, float mouseY)
+    public void Update(int ScrollDelta)
     {
         size = Math.Clamp(size + ScrollDelta, 0, 50);
-
-        posX = (int)Math.Floor(mouseX / screenWidth * worldWidth);
-        posY = (int)Math.Ceiling((1 - mouseY / screenHeight) * (worldHeight + UiHeight)) - 1;
     }
 
     public bool OnBorder(int x, int y)

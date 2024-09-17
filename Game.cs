@@ -19,11 +19,18 @@ public class Game : GameWindow
 
     private bool playing = true;
 
+    private readonly int worldWidth;
+    private readonly int worldHeight;
+    private readonly int UiHeight;
+
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, int worldWidth, int worldHeight, int UiHeight) : base(gameWindowSettings, nativeWindowSettings)
     {
+        this.worldWidth = worldWidth;
+        this.worldHeight = worldHeight;
+        this.UiHeight = UiHeight;
         world = new(worldWidth, worldHeight, UiHeight);
-        brush = new(Size.X, Size.Y, worldWidth, worldHeight, UiHeight);
+        brush = new(worldWidth, worldHeight, UiHeight);
         texture = new(worldWidth, worldHeight, UiHeight);
     }
 
@@ -59,7 +66,9 @@ public class Game : GameWindow
     {
         base.OnUpdateFrame(args);
 
-        brush.Update((int)MouseState.ScrollDelta.Y, MousePosition.X, MousePosition.Y);
+        brush.Update((int)MouseState.ScrollDelta.Y);
+        brush.posX = (int)Math.Floor(MousePosition.X / FramebufferSize.X * worldWidth);
+        brush.posY = (int)Math.Ceiling((1 - MousePosition.Y / FramebufferSize.Y) * (worldHeight + UiHeight)) - 1;
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -88,15 +97,21 @@ public class Game : GameWindow
 
         if (IsMouseButtonDown(MouseButton.Left) && brush.InBounds())
         {
-            brush.Draw(world);            
+            brush.Draw(world);
         }
 
         if (IsMouseButtonReleased(MouseButton.Left) && brush.OnUI())
         {
             brush.SetType();
         }
-        
+
         texture.Update(world.ToArray(brush));
+    }
+
+    protected override void OnFramebufferResize(FramebufferResizeEventArgs args)
+    {
+        base.OnFramebufferResize(args);
+        GL.Viewport(0, 0, args.Width, args.Height);
     }
 
     protected override void OnUnload()
