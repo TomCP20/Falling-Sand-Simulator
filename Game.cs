@@ -24,6 +24,7 @@ public class Game : GameWindow
         world = new(worldWidth, worldHeight);
         brush = new(worldWidth, worldHeight, UiHeight);
         texture = new(worldWidth, worldHeight, UiHeight);
+        texture.SetUpUI();
     }
 
     protected override void OnLoad()

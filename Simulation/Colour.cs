@@ -49,15 +49,6 @@ static class Colour
         return Noise(Grey, 0.5f);
     }
 
-    public static (float, float, float) UIStatic(int x, int y, int size)
-    {
-        Random old = rand;
-        rand = new(x + y * size);
-        (float, float, float) col = Static();
-        rand = old;
-        return col;
-    }
-
     public static (float, float, float) RandomMix((float, float, float) col1, (float, float, float) col2)
     {
         return Mix(col1, col2, rand.NextSingle());

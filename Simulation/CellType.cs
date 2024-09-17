@@ -49,7 +49,7 @@ public static class CellTypeExtension
             CellType.Wood => Colour.Brown,
             CellType.Fire => Colour.Vermilion,
             CellType.Acid => Colour.Green,
-            CellType.Confetti => Colour.UIStatic(x, y, size),
+            CellType.Confetti => Colour.Static(),
             CellType.Titanium => Colour.White,
             _ => throw new Exception($"Case {spawnType} not found."),
         };

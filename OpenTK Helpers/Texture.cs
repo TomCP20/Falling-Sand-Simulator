@@ -16,7 +16,7 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
         get => worldHeight + UiHeight;
     }
 
-    private float[] array = new float[3 * worldWidth * (worldHeight + UiHeight)];
+    private readonly float[] array = new float[3 * worldWidth * (worldHeight + UiHeight)];
 
     public void SetUp()
     {
@@ -32,7 +32,7 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
     }
-    
+
     public void Use(TextureUnit unit)
     {
         GL.ActiveTexture(unit);
@@ -81,35 +81,57 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
         for (int y = worldHeight; y < worldHeight + UiHeight; y++)
         {
             for (int x = 0; x < worldWidth; x++)
-            {
+            { 
                 (float, float, float) col;
-                if (Enum.IsDefined(typeof(CellType), x/UiHeight))
+                if (Enum.IsDefined(typeof(CellType), x / UiHeight))
                 {
-                    CellType type = (CellType)(x/UiHeight);
                     if (x % UiHeight == 0 || x % UiHeight == UiHeight - 1 || y == worldHeight || y == worldHeight + UiHeight - 1)
                     {
-                        if (type == brush.spawnType)
+                        if ((CellType)(x / UiHeight) == brush.spawnType)
                         {
                             col = Colour.White;
                         }
                         else
                         {
                             col = Colour.Black;
-                        }  
+                        }
                     }
                     else
                     {
-                        col = type.GetCol((x % UiHeight)-1, y-worldHeight-1, UiHeight-2);
+                        continue;
                     }
                 }
                 else
                 {
-                    col = (0, 0, 0);
+                    col = Colour.Black;
                 }
                 int index = y * worldWidth + x;
                 array[index * 3 + 0] = col.Item1;
                 array[index * 3 + 1] = col.Item2;
                 array[index * 3 + 2] = col.Item3;
+            }
+        }
+    }
+
+    public void SetUpUI()
+    {
+        for (int y = worldHeight; y < worldHeight + UiHeight; y++)
+        {
+            for (int x = 0; x < worldWidth; x++)
+            {
+                (float, float, float) col;
+                if (Enum.IsDefined(typeof(CellType), x / UiHeight))
+                {
+                    if (!(x % UiHeight == 0 || x % UiHeight == UiHeight - 1 || y == worldHeight || y == worldHeight + UiHeight - 1))
+                    {
+                        col = ((CellType)(x / UiHeight)).GetCol((x % UiHeight) - 1, y - worldHeight - 1, UiHeight - 2);
+                        int index = y * worldWidth + x;
+                        array[index * 3 + 0] = col.Item1;
+                        array[index * 3 + 1] = col.Item2;
+                        array[index * 3 + 2] = col.Item3;
+                    }
+                }
+
             }
         }
     }
