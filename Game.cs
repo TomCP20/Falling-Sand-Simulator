@@ -83,6 +83,18 @@ public class Game : GameWindow
             brush.show = !brush.show;
         }
 
+        if (KeyboardState.IsKeyPressed(Keys.F))
+        {
+            if(IsFullscreen)
+            {
+                WindowState = WindowState.Normal;
+            }
+            else
+            {
+                WindowState = WindowState.Fullscreen;
+            }
+        }
+
         if (playing || KeyboardState.IsKeyPressed(Keys.Right))
         {
             world.Update();

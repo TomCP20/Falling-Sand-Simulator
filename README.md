@@ -24,9 +24,11 @@ To build this project, use the command `dotnet build` in the project's base fold
   * Fire
   * Acid
   * Confetti
+  * Titanium
 * Use the scroll wheel to change the size of the brush.
 * Press <kbd>C</kbd> to clear the screen.
 * Press <kbd>H</kbd> to show / hide the brush outline.
+* Press <kbd>F</kbd> to toggle fullscreen.
 * Press <kbd>Esc</kbd> to exit the program.
 * Press <kbd>Space</kbd> to pause / resume the program.
 * Press <kbd>→</kbd> to step the program while paused.
