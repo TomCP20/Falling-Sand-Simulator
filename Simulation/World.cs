@@ -94,16 +94,6 @@ public class World(int width, int height, int UiHeight)
         return InBounds(x, y) && state[y, x] == null;
     }
 
-    public bool IsDisplaceable(int x, int y)
-    {
-        if (InBounds(x, y))
-        {
-            Cell? cell = state[y, x];
-            return cell == null || cell.displaceable;
-        }
-        return false;
-    }
-
     public bool InBounds(int x, int y)
     {
         return 0 <= x && x < width && 0 <= y && y < height;

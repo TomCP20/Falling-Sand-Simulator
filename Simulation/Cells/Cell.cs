@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace FallingSandSimulator;
 
 public abstract class Cell((float, float, float) colour, int x, int y)
@@ -49,10 +51,15 @@ public abstract class Cell((float, float, float) colour, int x, int y)
         {
             int newx = x + dx * dir;
             int newy = y + dy;
-            if (world.IsDisplaceable(newx, newy))
+            if (world.InBounds(newx, newy))
             {
-                world.Swap(this, world.GetCell(newx, newy));
-                return true;
+                Cell? cell = world.GetCell(newx, newy);
+                Debug.Assert(cell != null);
+                if (cell.displaceable)
+                {
+                    world.Swap(this, cell);
+                    return true;
+                }
             }
         }
         return false;
