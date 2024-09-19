@@ -23,7 +23,7 @@ public class Game : GameWindow
 
     private int framebuffer;
 
-    private int textureColorbuffer;
+    private readonly int[] textureColorbuffers = new int[2];
 
     private int rbo;
 
@@ -47,6 +47,8 @@ public class Game : GameWindow
 
         quad.SetUp();
 
+        texture.SetUp();
+
         shader.SetUp("Shaders/shader.vert", "Shaders/shader.frag");
         screenShader.SetUp("Shaders/screenShader.vert", "Shaders/screenShader.frag");
 
@@ -55,14 +57,17 @@ public class Game : GameWindow
         framebuffer = GL.GenFramebuffer();
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebuffer);
 
-        textureColorbuffer = GL.GenTexture();
-        GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, FramebufferSize.X, FramebufferSize.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, textureColorbuffer, 0);
+        GL.GenTextures(2, textureColorbuffers);
+        for (int i = 0; i < 2; i++)
+        {
+            GL.BindTexture(TextureTarget.Texture2D, textureColorbuffers[i]);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, FramebufferSize.X, FramebufferSize.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0 + i, TextureTarget.Texture2D, textureColorbuffers[i], 0);
+        }
 
         rbo = GL.GenRenderbuffer();
         GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, rbo);
@@ -73,9 +78,9 @@ public class Game : GameWindow
             Console.WriteLine("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
-        texture.SetUp();
+        DrawBuffersEnum[] attachments = [DrawBuffersEnum.ColorAttachment0, DrawBuffersEnum.ColorAttachment1];
+        GL.DrawBuffers(2, attachments);
 
-        
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -96,7 +101,7 @@ public class Game : GameWindow
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
         screenShader.Use();
-        GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
+        GL.BindTexture(TextureTarget.Texture2D, textureColorbuffers[0]);
         quad.Draw();
 
         SwapBuffers();
@@ -132,7 +137,7 @@ public class Game : GameWindow
 
         if (KeyboardState.IsKeyPressed(Keys.F))
         {
-            if(IsFullscreen)
+            if (IsFullscreen)
             {
                 WindowState = WindowState.Maximized;
             }
@@ -165,8 +170,11 @@ public class Game : GameWindow
         base.OnResize(e);
         GL.Viewport(0, 0, e.Width, e.Height);
 
-        GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, e.Width, e.Height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
+        for (int i = 0; i < 2; i++)
+        {
+            GL.BindTexture(TextureTarget.Texture2D, textureColorbuffers[i]);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, e.Width, e.Height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
+        }
 
         GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, rbo);
         GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.Depth24Stencil8, e.Width, e.Height);
