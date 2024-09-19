@@ -10,6 +10,8 @@ public abstract class Cell((float, float, float) colour, int x, int y)
 
     public int y = y;
 
+    public bool glow = false;
+
     protected static readonly Random rand = new();
 
     public bool displaceable = false;

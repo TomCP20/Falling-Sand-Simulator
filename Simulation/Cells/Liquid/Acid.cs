@@ -8,6 +8,7 @@ public class Acid : Liquid
     public Acid(int x, int y) : base(Colour.Green, x, y)
     {
         corrodeChance = 0;
+        glow = true;
     }
 
     public override void Update(World world)

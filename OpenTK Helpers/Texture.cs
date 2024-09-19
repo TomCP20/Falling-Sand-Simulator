@@ -16,7 +16,7 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
         get => worldHeight + UiHeight;
     }
 
-    private readonly float[] array = new float[3 * worldWidth * (worldHeight + UiHeight)];
+    private readonly float[] array = new float[4 * worldWidth * (worldHeight + UiHeight)];
 
     public void SetUp()
     {
@@ -24,7 +24,7 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, Handle);
 
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, worldWidth, worldHeight + UiHeight, 0, PixelFormat.Rgb, PixelType.Float, nint.Zero);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, worldWidth, worldHeight + UiHeight, 0, PixelFormat.Rgba, PixelType.Float, nint.Zero);
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
@@ -50,6 +50,7 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
         {
             for (int x = 0; x < worldWidth; x++)
             {
+                float glow = 0;
                 (float, float, float) col;
                 if (brush.show && brush.OnBorder(x, y) && brush.InBounds())
                 {
@@ -65,13 +66,19 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
                     else
                     {
                         col = cell.colour;
+                        if (cell.glow)
+                        {
+                            glow = 1;
+                        }
                     }
+
                 }
                 int index = y * worldWidth + x;
 
-                array[index * 3 + 0] = col.Item1;
-                array[index * 3 + 1] = col.Item2;
-                array[index * 3 + 2] = col.Item3;
+                array[index * 4 + 0] = col.Item1;
+                array[index * 4 + 1] = col.Item2;
+                array[index * 4 + 2] = col.Item3;
+                array[index * 4 + 3] = glow;
             }
         }
     }
@@ -106,9 +113,10 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
                     col = Colour.Black;
                 }
                 int index = y * worldWidth + x;
-                array[index * 3 + 0] = col.Item1;
-                array[index * 3 + 1] = col.Item2;
-                array[index * 3 + 2] = col.Item3;
+                array[index * 4 + 0] = col.Item1;
+                array[index * 4 + 1] = col.Item2;
+                array[index * 4 + 2] = col.Item3;
+                array[index * 4 + 3] = 0;
             }
         }
     }
@@ -126,9 +134,10 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
                     {
                         col = ((CellType)(x / UiHeight)).GetCol((x % UiHeight) - 1, y - worldHeight - 1, UiHeight - 2);
                         int index = y * worldWidth + x;
-                        array[index * 3 + 0] = col.Item1;
-                        array[index * 3 + 1] = col.Item2;
-                        array[index * 3 + 2] = col.Item3;
+                        array[index * 4 + 0] = col.Item1;
+                        array[index * 4 + 1] = col.Item2;
+                        array[index * 4 + 2] = col.Item3;
+                        array[index * 4 + 3] = 0;
                     }
                 }
 
@@ -140,6 +149,6 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
     {
         UpdateArray(world, brush);
         GL.BindTexture(TextureTarget.Texture2D, Handle);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, worldWidth, worldHeight + UiHeight, 0, PixelFormat.Rgb, PixelType.Float, array);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, worldWidth, worldHeight + UiHeight, 0, PixelFormat.Rgba, PixelType.Float, array);
     }
 }
