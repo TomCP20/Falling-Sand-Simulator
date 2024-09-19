@@ -5,6 +5,7 @@ public class Fire : Solid
     public Fire(int x, int y) : base(Colour.RandomMix(Colour.Red, Colour.Yellow), x, y)
     {
         glow = true;
+        infectChance = 0;
     }
 
     private static readonly float decayChance = 0.01f;

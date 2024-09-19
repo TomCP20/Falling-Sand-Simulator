@@ -11,6 +11,7 @@ static class Colour
     public static readonly (float, float, float) Red = (1, 0, 0);
     public static readonly (float, float, float) Green = (0, 1, 0);
     public static readonly (float, float, float) Black = (0, 0, 0);
+    public static readonly (float, float, float) Purple = (1, 0, 1);
 
     private static Random rand = new();
     public static (float, float, float) HueToRgb(float hue)

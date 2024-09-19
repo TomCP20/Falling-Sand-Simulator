@@ -20,6 +20,7 @@ public abstract class Cell((float, float, float) colour, int x, int y)
 
     public float corrodeChance = 0.1f;
 
+    public float infectChance = 0.1f;
 
 
     public static int RandDirection()
@@ -84,6 +85,11 @@ public abstract class Cell((float, float, float) colour, int x, int y)
     public void Burn(World world)
     {
         world.SpawnCell(x, y, CellType.Fire);
+    }
+
+    public void Infect(World world)
+    {
+        world.SpawnCell(x, y, CellType.Virus);
     }
     public abstract void Update(World world);
 }

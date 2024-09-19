@@ -13,6 +13,7 @@ public enum CellType
     Acid,
     Confetti,
     Titanium,
+    Virus,
 }
 
 public static class CellTypeExtension
@@ -32,6 +33,7 @@ public static class CellTypeExtension
             CellType.Acid => new Acid(x, y),
             CellType.Confetti => new Confetti(x, y),
             CellType.Titanium => new Titanium(x, y),
+            CellType.Virus => new Virus(x, y),
             _ => throw new Exception($"Case {spawnType} not found."),
         };
     }
@@ -51,6 +53,7 @@ public static class CellTypeExtension
             CellType.Acid => Colour.Green,
             CellType.Confetti => Colour.Static(),
             CellType.Titanium => Colour.White,
+            CellType.Virus => Colour.Purple,
             _ => throw new Exception($"Case {spawnType} not found."),
         };
     }
