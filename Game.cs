@@ -38,6 +38,8 @@ public class Game : GameWindow
         shader.SetUp("Shaders/shader.vert", "Shaders/shader.frag");
 
         texture.SetUp();
+
+        WindowState = WindowState.Maximized;
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -87,7 +89,7 @@ public class Game : GameWindow
         {
             if(IsFullscreen)
             {
-                WindowState = WindowState.Normal;
+                WindowState = WindowState.Maximized;
             }
             else
             {
@@ -113,10 +115,10 @@ public class Game : GameWindow
         texture.Update(world, brush);
     }
 
-    protected override void OnFramebufferResize(FramebufferResizeEventArgs args)
+    protected override void OnResize(ResizeEventArgs e)
     {
-        base.OnFramebufferResize(args);
-        GL.Viewport(0, 0, args.Width, args.Height);
+        base.OnResize(e);
+        GL.Viewport(0, 0, e.Width, e.Height);
     }
 
     protected override void OnUnload()
