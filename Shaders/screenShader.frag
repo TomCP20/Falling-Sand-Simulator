@@ -3,9 +3,12 @@ out vec4 FragColor;
 
 in vec2 texCoord;
 
-uniform sampler2D screenTexture;
+uniform sampler2D scene;
+uniform sampler2D bloomBlur;
 
 void main()
-{
-    FragColor = vec4(texture(screenTexture, texCoord).rgb, 1);
-}
+{             
+    vec3 hdrColor = texture(scene, texCoord).rgb;
+    vec3 bloomColor = texture(bloomBlur, texCoord).rgb;
+    FragColor = vec4(hdrColor + bloomColor/2, 1.0);
+}  
