@@ -132,15 +132,15 @@ public class Texture(int worldWidth, int worldHeight, int UiHeight)
                 {
                     if (!(x % UiHeight == 0 || x % UiHeight == UiHeight - 1 || y == worldHeight || y == worldHeight + UiHeight - 1))
                     {
-                        col = ((CellType)(x / UiHeight)).GetCol((x % UiHeight) - 1, y - worldHeight - 1, UiHeight - 2);
+                        CellType type = (CellType)(x / UiHeight);
+                        col = type.GetCol((x % UiHeight) - 1, y - worldHeight - 1, UiHeight - 2);
                         int index = y * worldWidth + x;
                         array[index * 4 + 0] = col.Item1;
                         array[index * 4 + 1] = col.Item2;
                         array[index * 4 + 2] = col.Item3;
-                        array[index * 4 + 3] = 0;
+                        array[index * 4 + 3] = type.Glows() ? 1 : 0;
                     }
                 }
-
             }
         }
     }

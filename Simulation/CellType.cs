@@ -53,8 +53,13 @@ public static class CellTypeExtension
             CellType.Acid => Colour.Green,
             CellType.Confetti => Colour.Static(),
             CellType.Titanium => Colour.White,
-            CellType.Virus => Colour.Purple,
+            CellType.Virus => Colour.Noise(Colour.Purple, 0.4f),
             _ => throw new Exception($"Case {spawnType} not found."),
         };
+    }
+
+    public static bool Glows(this CellType spawnType)
+    {
+        return spawnType == CellType.Fire || spawnType == CellType.Acid || spawnType == CellType.Virus;
     }
 }
