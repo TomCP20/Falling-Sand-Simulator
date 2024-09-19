@@ -47,7 +47,7 @@ public static class CellTypeExtension
             CellType.Brick => Colour.UIBrickPattern(x, y),
             CellType.Smoke => Colour.SmokeGrey,
             CellType.Wood => Colour.Noise(Colour.Brown, 0.02f),
-            CellType.Fire => Colour.RandomMix(Colour.Red, Colour.Orange),
+            CellType.Fire => Colour.RandomMix(Colour.Red, Colour.Yellow),
             CellType.Acid => Colour.Green,
             CellType.Confetti => Colour.Static(),
             CellType.Titanium => Colour.White,

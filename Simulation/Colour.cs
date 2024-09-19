@@ -9,7 +9,6 @@ static class Colour
     public static readonly (float, float, float) SmokeGrey = (0.51f, 0.53f, 0.51f);
     public static readonly (float, float, float) Brown = (0.54f, 0.27f, 0.07f);
     public static readonly (float, float, float) Red = (1, 0, 0);
-    public static readonly (float, float, float) Orange = (1, 0.64f, 0);
     public static readonly (float, float, float) Green = (0, 1, 0);
     public static readonly (float, float, float) Black = (0, 0, 0);
 
