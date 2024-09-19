@@ -28,11 +28,6 @@ public abstract class Mesh(int vertexCount, float[] vertices)
         GL.DrawArrays(PrimitiveType.Triangles, 0, vertexCount);
     }
 
-    public void Bind()
-    {
-        GL.BindVertexArray(vertexArrayObject);
-    }
-
     public void Delete()
     {
         GL.DeleteBuffer(vertexBufferObject);

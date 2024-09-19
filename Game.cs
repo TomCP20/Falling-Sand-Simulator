@@ -55,9 +55,6 @@ public class Game : GameWindow
         framebuffer = GL.GenFramebuffer();
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebuffer);
 
-        framebuffer = GL.GenFramebuffer();
-        GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebuffer);
-
         textureColorbuffer = GL.GenTexture();
         GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
         GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, FramebufferSize.X, FramebufferSize.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
@@ -99,9 +96,8 @@ public class Game : GameWindow
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
         screenShader.Use();
-        quad.Bind();
         GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+        quad.Draw();
 
         SwapBuffers();
     }
