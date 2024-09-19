@@ -11,6 +11,8 @@ public class Game : GameWindow
 
     private readonly Shader shader = new();
 
+    private readonly Shader screenShader = new();
+
     private readonly Texture texture;
 
     private readonly World world;
@@ -18,6 +20,13 @@ public class Game : GameWindow
     private readonly Brush brush;
 
     private bool playing = true;
+
+    private int framebuffer;
+
+    private int textureColorbuffer;
+
+    private int rbo;
+
 
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, int worldWidth, int worldHeight, int UiHeight) : base(gameWindowSettings, nativeWindowSettings)
     {
@@ -31,28 +40,68 @@ public class Game : GameWindow
     {
         base.OnLoad();
 
+        WindowState = WindowState.Maximized;
+
         GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        GL.Disable(EnableCap.DepthTest);
 
         quad.SetUp();
 
         shader.SetUp("Shaders/shader.vert", "Shaders/shader.frag");
+        screenShader.SetUp("Shaders/screenShader.vert", "Shaders/screenShader.frag");
+
+        screenShader.SetInt("screenTexture", 0);
+
+        framebuffer = GL.GenFramebuffer();
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebuffer);
+
+        framebuffer = GL.GenFramebuffer();
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebuffer);
+
+        textureColorbuffer = GL.GenTexture();
+        GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, FramebufferSize.X, FramebufferSize.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, textureColorbuffer, 0);
+
+        rbo = GL.GenRenderbuffer();
+        GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, rbo);
+        GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.Depth24Stencil8, FramebufferSize.X, FramebufferSize.Y); // use a single renderbuffer object for both a depth AND stencil buffer.
+        GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
+        GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, rbo); // now actually attach it
+        if (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer) != FramebufferErrorCode.FramebufferComplete)
+            Console.WriteLine("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
         texture.SetUp();
 
-        WindowState = WindowState.Maximized;
+        
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
     {
         base.OnRenderFrame(args);
 
-        GL.Clear(ClearBufferMask.ColorBufferBit);
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebuffer);
+
+        GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
         shader.Use();
-
         texture.Use(TextureUnit.Texture0);
-
         quad.Draw();
+
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
+        GL.Disable(EnableCap.DepthTest);
+        GL.ClearColor(1, 1, 1, 1);
+        GL.Clear(ClearBufferMask.ColorBufferBit);
+
+        screenShader.Use();
+        quad.Bind();
+        GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
         SwapBuffers();
     }
@@ -119,6 +168,12 @@ public class Game : GameWindow
     {
         base.OnResize(e);
         GL.Viewport(0, 0, e.Width, e.Height);
+
+        GL.BindTexture(TextureTarget.Texture2D, textureColorbuffer);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, e.Width, e.Height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
+
+        GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, rbo);
+        GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.Depth24Stencil8, e.Width, e.Height);
     }
 
     protected override void OnUnload()
