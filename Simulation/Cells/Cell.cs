@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace FallingSandSimulator;
 
 public abstract class Cell(CellType type, int x, int y)
@@ -31,41 +29,6 @@ public abstract class Cell(CellType type, int x, int y)
     public static bool Random(float chance) // has a chance probability of returning true
     {
         return rand.NextSingle() <= chance;
-    }
-
-    public bool AttemptMoves(World world, (int, int)[] deltas, int dir)
-    {
-        foreach ((int dx, int dy) in deltas)
-        {
-            int newx = x + dx * dir;
-            int newy = y + dy;
-            if (world.IsEmpty(newx, newy))
-            {
-                world.MoveTo(this, newx, newy);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public bool AttemptDisplacements(World world, (int, int)[] deltas, int dir)
-    {
-        foreach ((int dx, int dy) in deltas)
-        {
-            int newx = x + dx * dir;
-            int newy = y + dy;
-            if (world.InBounds(newx, newy))
-            {
-                Cell? cell = world.GetCell(newx, newy);
-                Debug.Assert(cell != null);
-                if (cell.displaceable)
-                {
-                    world.Swap(this, cell);
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public bool InLiquid(World world)
