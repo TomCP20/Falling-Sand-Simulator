@@ -79,9 +79,4 @@ static class Colour
     {
         return BrickPattern(Red, White, 10, 5, x, y);
     }
-
-    public static (float, float, float) UIBrickPattern(int x, int y)
-    {
-        return BrickPattern(Red, White, 3, 2, x, y);
-    }
 }

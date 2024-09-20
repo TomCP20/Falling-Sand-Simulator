@@ -46,7 +46,7 @@ public static class CellTypeExtension
             CellType.Water => Colour.Blue,
             CellType.Sand => Colour.Noise(Colour.Yellow, 0.1f),
             CellType.RainbowSand => Colour.HueToRgb(x/(float)size),
-            CellType.Brick => Colour.UIBrickPattern(x, y),
+            CellType.Brick => Colour.BrickPattern(x, y),
             CellType.Smoke => Colour.SmokeGrey,
             CellType.Wood => Colour.Noise(Colour.Brown, 0.02f),
             CellType.Fire => Colour.RandomMix(Colour.Red, Colour.Yellow),
