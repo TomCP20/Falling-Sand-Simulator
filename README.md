@@ -26,6 +26,7 @@ To build this project, use the command `dotnet build` in the project's base fold
   * Confetti
   * Titanium
   * Virus
+  * Gravel
 * Use the scroll wheel to change the size of the brush.
 * Press <kbd>C</kbd> to clear the screen.
 * Press <kbd>H</kbd> to show / hide the brush outline.

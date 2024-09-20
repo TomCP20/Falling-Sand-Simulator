@@ -14,6 +14,7 @@ public enum CellType
     Confetti,
     Titanium,
     Virus,
+    Gravel,
 }
 
 public static class CellTypeExtension
@@ -34,6 +35,7 @@ public static class CellTypeExtension
             CellType.Confetti => new Confetti(x, y),
             CellType.Titanium => new Titanium(x, y),
             CellType.Virus => new Virus(x, y),
+            CellType.Gravel => new Gravel(x, y),
             _ => throw new Exception($"Case {spawnType} not found."),
         };
     }
@@ -54,6 +56,7 @@ public static class CellTypeExtension
             CellType.Confetti => Colour.Static(),
             CellType.Titanium => Colour.White,
             CellType.Virus => Colour.Noise(Colour.Purple, 0.4f),
+            CellType.Gravel => Colour.GreyNoise(0.5f, 0.25f),
             _ => throw new Exception($"Case {spawnType} not found."),
         };
     }
