@@ -8,12 +8,13 @@ public class Fire : Solid
         infectChance = 0;
     }
 
-    private static readonly float decayChance = 0.01f;
+    private static readonly float baseDecayChance = 0.01f;
 
     private static readonly float smokeChance = 0.1f;
 
     public override void Update(World world)
     {
+        float decayChance = baseDecayChance *  (InWater(world) ? 10 : 1);
         if (Random(decayChance))
         {
             world.DeleteCell(this);

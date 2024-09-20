@@ -43,6 +43,18 @@ public abstract class Cell(CellType type, int x, int y)
         return false;
     }
 
+    public bool InWater(World world)
+    {
+        foreach (Cell? neighbor in GetNeighbors(world))
+        {
+            if (neighbor is Water)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public IEnumerable<Cell?> GetNeighbors(World world)
     {
         (int, int)[] deltas = [(0, -1), (-1, 0), (1, 0), (0, 1)];
