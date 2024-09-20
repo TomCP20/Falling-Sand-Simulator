@@ -78,5 +78,8 @@ public abstract class Cell(CellType type, int x, int y)
     {
         world.SpawnCell(x, y, CellType.Virus);
     }
-    public abstract void Update(World world);
+    public virtual bool Update(World world)
+    {
+        return false;
+    }
 }

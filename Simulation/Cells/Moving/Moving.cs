@@ -7,19 +7,19 @@ public abstract class Moving(CellType type, int x, int y) : Cell(type, x, y)
 
     protected (int, int)[] deltas = [];
 
-    public override void Update(World world)
+    public override bool Update(World world)
     {
         int dir = RandDirection();
         
         if(AttemptMoves(world, deltas, dir))
         {
-            return;
+            return true;
         }
         if(AttemptDisplacements(world, deltas, dir))
         {
-            return;
+            return true;
         }
-        world.SetStepped(this);
+        return base.Update(world);
     }
 
     public bool AttemptMoves(World world, (int, int)[] deltas, int dir)

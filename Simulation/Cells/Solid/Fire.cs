@@ -12,13 +12,13 @@ public class Fire : Solid
 
     private static readonly float smokeChance = 0.1f;
 
-    public override void Update(World world)
+    public override bool Update(World world)
     {
         float decayChance = baseDecayChance *  (InWater(world) ? 10 : 1);
         if (Random(decayChance))
         {
             world.DeleteCell(this);
-            return;
+            return true;
         }
         if (world.IsEmpty(x, y + 1))
         {
@@ -37,6 +37,6 @@ public class Fire : Solid
                 }
             }
         }
-        base.Update(world);
+        return base.Update(world);
     }
 }

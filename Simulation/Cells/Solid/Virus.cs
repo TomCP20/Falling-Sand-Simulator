@@ -9,7 +9,7 @@ public class Virus : Solid
         glow = true;
     }
 
-    public override void Update(World world)
+    public override bool Update(World world)
     {
         foreach (Cell? neighbor in GetNeighbors(world))
         {
@@ -21,6 +21,6 @@ public class Virus : Solid
                 }
             }
         }
-        base.Update(world);
+        return base.Update(world);
     }
 }

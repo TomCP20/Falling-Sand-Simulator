@@ -12,7 +12,7 @@ public class Acid : Liquid
         glow = true;
     }
 
-    public override void Update(World world)
+    public override bool Update(World world)
     {
         foreach (Cell? neighbor in GetNeighbors(world))
         {
@@ -24,11 +24,11 @@ public class Acid : Liquid
                     if (Random(expireChance))
                     {
                         world.DeleteCell(this);
-                        return;
+                        return true;
                     }
                 }
             }
         }
-        base.Update(world);
+        return base.Update(world);
     }
 }

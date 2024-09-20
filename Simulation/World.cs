@@ -20,7 +20,15 @@ public class World(int width, int height)
             {
                 if (!stepped[y, x])
                 {
-                    state[y, x]?.Update(this);
+                    Cell? cell = state[y, x];
+                    if (cell != null)
+                    {
+                        if (!cell.Update(this))
+                        {
+                            stepped[y, x] = true;
+                        }
+                    }
+
                 }
             }
         }
