@@ -2,9 +2,9 @@ using System.Diagnostics;
 
 namespace FallingSandSimulator;
 
-public abstract class Cell((float, float, float) colour, int x, int y)
+public abstract class Cell(CellType type, int x, int y)
 {
-    public (float, float, float) colour = colour;
+    public (float, float, float) colour = type.GetCol(x, y);
 
     public int x = x;
 

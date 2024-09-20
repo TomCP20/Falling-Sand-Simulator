@@ -1,10 +1,10 @@
 namespace FallingSandSimulator;
 
-public class RainbowSand(int x, int y) : Powder(GetColour(), x, y)
+public class RainbowSand(int x, int y) : Powder(CellType.RainbowSand, x, y)
 {
     static float hue = 0;
 
-    private static (float, float, float) GetColour()
+    public static (float, float, float) GetColour()
     {
         hue %= 1;
         (float, float, float) col = Colour.HueToRgb(hue);

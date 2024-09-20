@@ -38,14 +38,14 @@ public static class CellTypeExtension
         };
     }
 
-    public static (float, float, float) GetCol(this CellType spawnType, int x, int y, int size)
+    public static (float, float, float) GetCol(this CellType spawnType, int x, int y)
     {
         return spawnType switch
         {
             CellType.Empty => Colour.DarkGrey,
             CellType.Water => Colour.Blue,
             CellType.Sand => Colour.Noise(Colour.Yellow, 0.1f),
-            CellType.RainbowSand => Colour.HueToRgb(x/(float)size),
+            CellType.RainbowSand => RainbowSand.GetColour(),
             CellType.Brick => Colour.BrickPattern(x, y),
             CellType.Smoke => Colour.SmokeGrey,
             CellType.Wood => Colour.Noise(Colour.Brown, 0.02f),
@@ -56,6 +56,18 @@ public static class CellTypeExtension
             CellType.Virus => Colour.Noise(Colour.Purple, 0.4f),
             _ => throw new Exception($"Case {spawnType} not found."),
         };
+    }
+
+    public static (float, float, float) GetColUI(this CellType spawnType, int x, int y, int size)
+    {
+        if (spawnType == CellType.RainbowSand)
+        {
+            return Colour.HueToRgb(x/(float)size);
+        }
+        else
+        {
+            return spawnType.GetCol(x, y);
+        }
     }
 
     public static bool Glows(this CellType spawnType)

@@ -2,7 +2,7 @@ namespace FallingSandSimulator;
 
 public abstract class Liquid : Cell
 {
-    public Liquid((float, float, float) colour, int x, int y) : base(colour, x, y)
+    public Liquid(CellType type, int x, int y) : base(type, x, y)
     {
         displaceable = true;
     }

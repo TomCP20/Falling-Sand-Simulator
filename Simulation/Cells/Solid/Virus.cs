@@ -2,7 +2,7 @@ namespace FallingSandSimulator;
 
 public class Virus : Solid
 {
-    public Virus(int x, int y) : base(Colour.Noise(Colour.Purple, 0.4f), x, y)
+    public Virus(int x, int y) : base(CellType.Virus, x, y)
     {
         infectChance = 0;
         burnChance = 0.5f;

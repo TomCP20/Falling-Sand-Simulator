@@ -2,7 +2,7 @@ namespace FallingSandSimulator;
 
 public class Fire : Solid
 {
-    public Fire(int x, int y) : base(Colour.RandomMix(Colour.Red, Colour.Yellow), x, y)
+    public Fire(int x, int y) : base(CellType.Fire, x, y)
     {
         glow = true;
         infectChance = 0;
