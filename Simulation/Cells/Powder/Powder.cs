@@ -7,11 +7,20 @@ public abstract class Powder(CellType type, int x, int y) : Cell(type, x, y)
     public override void Update(World world)
     {
         int dir = RandDirection();
-        if(AttemptMoves(world, deltas1, dir))
+        (int, int)[] deltas;
+        if (InLiquid(world))
+        {
+            deltas = deltas2;
+        }
+        else
+        {
+            deltas = deltas1;
+        }
+        if(AttemptMoves(world, deltas, dir))
         {
             return;
         }
-        if(AttemptDisplacements(world, deltas2, dir))
+        if(AttemptDisplacements(world, deltas, dir))
         {
             return;
         }
