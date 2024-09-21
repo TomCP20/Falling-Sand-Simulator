@@ -12,8 +12,6 @@ public abstract class Cell(CellType type, int x, int y)
 
     protected static readonly Random rand = new();
 
-    public bool displaceable = false;
-
     public float burnChance = 0;
 
     public float corrodeChance = 0.1f;
@@ -81,5 +79,22 @@ public abstract class Cell(CellType type, int x, int y)
     public virtual bool Update(World world)
     {
         return false;
+    }
+
+    public bool CanDisplace(Cell cell2)
+    {
+        if (cell2 is Solid || cell2 is Powder)
+        {
+            return false;
+        }
+        if (cell2 is Liquid && this is not Powder && this is not Gas)
+        {
+            return false;
+        }
+        if (cell2 is Gas && this is Gas)
+        {
+            return false;
+        }
+        return true;
     }
 }

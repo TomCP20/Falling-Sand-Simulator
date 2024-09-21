@@ -47,7 +47,7 @@ public abstract class Moving(CellType type, int x, int y) : Cell(type, x, y)
             {
                 Cell? cell = world.GetCell(newx, newy);
                 Debug.Assert(cell != null);
-                if (cell.displaceable)
+                if (CanDisplace(cell))
                 {
                     world.Swap(this, cell);
                     return true;
