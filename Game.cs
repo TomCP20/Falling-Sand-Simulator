@@ -128,17 +128,17 @@ public class Game : GameWindow
 
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
-        bool horizontal = true;
+        int horizontal = 1;
         bool first_iteration = true;
         int amount = 10;
         blur.Use();
         for (int i = 0; i < amount; i++)
         {
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, pingpongFBO[horizontal ? 1 : 0]);
-            blur.SetInt("horizontal", horizontal ? 1 : 0);
-            GL.BindTexture(TextureTarget.Texture2D, first_iteration ? textureColorbuffers[1] : pingpongColorbuffers[!horizontal ? 1 : 0]);  // bind texture of other framebuffer (or scene if first iteration)
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, pingpongFBO[horizontal]);
+            blur.SetInt("horizontal", horizontal);
+            GL.BindTexture(TextureTarget.Texture2D, first_iteration ? textureColorbuffers[1] : pingpongColorbuffers[1-horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
             quad.Draw();
-            horizontal = !horizontal;
+            horizontal = 1-horizontal;
             if (first_iteration)
                 first_iteration = false;
         }
@@ -149,7 +149,7 @@ public class Game : GameWindow
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, textureColorbuffers[0]);
         GL.ActiveTexture(TextureUnit.Texture1);
-        GL.BindTexture(TextureTarget.Texture2D, pingpongColorbuffers[!horizontal ? 1 : 0]);
+        GL.BindTexture(TextureTarget.Texture2D, pingpongColorbuffers[1-horizontal]);
          
         quad.Draw();
 
