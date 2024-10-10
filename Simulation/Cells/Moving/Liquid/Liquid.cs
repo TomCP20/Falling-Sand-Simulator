@@ -5,7 +5,7 @@ namespace FallingSandSimulator;
 public abstract class Liquid : Moving
 {
     private readonly float dispersion = 15;
-    public Liquid(CellType type, int x, int y) : base(type, x, y)
+    protected Liquid(CellType type, int x, int y) : base(type, x, y)
     {
         deltas = [(0, -1), (-1, -1), (1, -1)];
     }
@@ -18,8 +18,14 @@ public abstract class Liquid : Moving
         }
 
         int dir = RandDirection();
-        Disperse(world, dir);
-        Disperse(world, -dir);
+        if (Disperse(world, dir))
+        {
+            return true;
+        }
+        if (Disperse(world, -dir))
+        {
+            return true;
+        }
 
         return false;
     }
